@@ -90,6 +90,10 @@ public class VistaAddSocio {
         nombre = pedirNombreSocio();
         // Obtener el número de socio mediante un método
         numero = obtenerNumeroSocio();
+        if (numero == null) {
+            txtMostrarMensaje("Error al generar el número de socio. Inténtelo de nuevo más tarde.");
+            return;
+        }
 
         switch (tipoSocio) {
             case 1: // Socio Estándar
@@ -143,10 +147,11 @@ public class VistaAddSocio {
         }
     }
 
+
     private boolean nifExiste(String nif) throws SQLException {
         List<Socio> listSocios = cSocios.listSocios();
         for (Socio socio : listSocios) {
-            if (socio.getNif().equals(nif)) {
+            if (socio.getNifSocio().equals(nif)) {
                 return true;
             }
         }
@@ -159,16 +164,16 @@ public class VistaAddSocio {
     }
 
     // Comprobar último número de socio y devolver el siguiente
-    private String obtenerNumeroSocio() throws SQLException {
-        // Si no hay socios, devolver "SOC001"
-        if (cDatos.getSiguienteCodigo(3).isEmpty()) {
-            return "SOC001";
-        }
-        // Si hay socios, devolver el siguiente número de socio
-        else {
-            return cDatos.getSiguienteCodigo(3);
+    public String obtenerNumeroSocio() {
+        try {
+            return cDatos.getSiguienteCodigo(3); // Asumiendo que 3 es para Socio
+        } catch (Exception e) {
+            e.printStackTrace();
+            txtMostrarMensaje("Error al generar el número de socio. Inténtelo de nuevo más tarde.");
+            return null;
         }
     }
+
 
     private String pedirNombreSocio() {
         return cPeticiones.pedirString("Introduce el nombre del socio: ");

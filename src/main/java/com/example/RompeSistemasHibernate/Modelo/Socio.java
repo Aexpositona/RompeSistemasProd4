@@ -18,27 +18,27 @@ public class Socio {
     private int tipo;
 
     @Column(nullable = false)
-    private String nombre;
+    private String nombreSocio;
 
     @Column(nullable = false, unique = true)
-    private String numero;
+    private String codigoSocio;
 
     @Column(nullable = false, unique = true)
-    private String nif;
+    private String nifSocio;
 
     // Constructores
 
     /**
      * Constructor de la clase Socio
-     * @param nombre Es el nombre del socio
-     * @param numero Es el número del socio
-     * @param nif Es el NIF del socio
+     * @param nombreSocio Es el nombre del socio
+     * @param codigoSocio Es el número del socio
+     * @param nifSocio Es el NIF del socio
      */
-    public Socio(String nombre, String numero, String nif) {
+    public Socio(String nombreSocio, String codigoSocio, String nifSocio) {
         this.tipo = 0;
-        this.nombre = nombre;
-        this.numero = numero;
-        this.nif = nif;
+        this.nombreSocio = nombreSocio;
+        this.codigoSocio = codigoSocio;
+        this.nifSocio = nifSocio;
     }
 
     /**
@@ -47,9 +47,9 @@ public class Socio {
      */
     public Socio(Socio socio) {
         this.tipo = socio.tipo;
-        this.nombre = socio.nombre;
-        this.numero = socio.numero;
-        this.nif = socio.nif;
+        this.nombreSocio = socio.nombreSocio;
+        this.codigoSocio = socio.codigoSocio;
+        this.nifSocio = socio.nifSocio;
     }
 
     /**
@@ -57,9 +57,9 @@ public class Socio {
      */
     public Socio() {
         this.tipo = 0;
-        this.nombre = "";
-        this.numero = "";
-        this.nif = "";
+        this.nombreSocio = "";
+        this.codigoSocio = "";
+        this.nifSocio = "";
     }
 
     // Métodos Getters
@@ -67,16 +67,16 @@ public class Socio {
      * Método get() de la clase Socio que nos devuelve el nombre del socio
      * @return El nombre del socio
      */
-    public String getNombre() {
-        return nombre;
+    public String getNombreSocio() {
+        return nombreSocio;
     }
 
     /**
      * Método get() de la clase Socio que nos devuelve el número del socio
      * @return El número del socio
      */
-    public String getNumero() {
-        return numero;
+    public String getCodigoSocio() {
+        return codigoSocio;
     }
 
     /**
@@ -94,8 +94,8 @@ public class Socio {
      * Método get() de la clase Socio que nos devuelve el NIF del socio
      * @return El NIF del socio
      */
-    public String getNif() {
-        return nif;
+    public String getNifSocio() {
+        return nifSocio;
     }
 
     // Métodos Setters
@@ -103,16 +103,16 @@ public class Socio {
      * Método set() de la clase Socio que nos permite definir el nombre del socio
      * @param nombre Es el nombre del socio
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreSocio(String nombre) {
+        this.nombreSocio = nombre;
     }
 
     /**
      * Método set() de la clase Socio que nos permite definir el número del socio
      * @param numero Es el número del socio
      */
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setCodigoSocio(String numero) {
+        this.codigoSocio = numero;
     }
 
     /**
@@ -130,8 +130,8 @@ public class Socio {
      * Método set() de la clase Socio que nos permite definir el NIF del socio
      * @param nif Es el NIF del socio
      */
-    public void setNif(String nif) {
-        this.nif = nif;
+    public void setNifSocio(String nif) {
+        this.nifSocio = nif;
     }
 
     /**
@@ -148,9 +148,9 @@ public class Socio {
         } else if (tipo == 3) {
             tipoSocio = "Infantil";
         }
-        return "Nombre: " + nombre +
-                "\nNumero de socio: " + numero +
-                "\nNIF: " + nif +
+        return "Nombre: " + nombreSocio +
+                "\nNumero de socio: " + codigoSocio +
+                "\nNIF: " + nifSocio +
                 "\nTipo: " + tipoSocio + "\n";
     }
 }

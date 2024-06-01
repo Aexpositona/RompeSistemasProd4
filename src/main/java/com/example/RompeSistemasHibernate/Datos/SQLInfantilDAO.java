@@ -23,7 +23,7 @@ public class SQLInfantilDAO implements InfantilDAO {
 
     @Override
     public Infantil getInfantil(String codigo) {
-        String query = "SELECT i FROM Infantil i JOIN FETCH i.numSocioTutor WHERE i.numero = :codigo"; // Asumiendo que Infantil tiene una relación con el tutor
+        String query = "SELECT i FROM Infantil i JOIN FETCH i.numSocioTutor WHERE i.codigoSocio = :codigo"; // Asumiendo que Infantil tiene una relación con el tutor
         TypedQuery<Infantil> tq = em.createQuery(query, Infantil.class);
         tq.setParameter("codigo", codigo);
         List<Infantil> resultados = tq.getResultList();

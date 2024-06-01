@@ -6,8 +6,8 @@ import javax.persistence.*;
 @DiscriminatorValue("Estandar")
 public class Estandar extends Socio {
 
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "idSeguro")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nombreSeguro")
     private Seguro seguro;
 
     private static final int tipo = 1;

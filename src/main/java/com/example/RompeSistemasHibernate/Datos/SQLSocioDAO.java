@@ -23,7 +23,7 @@ public class SQLSocioDAO implements SocioDAO {
 
     @Override
     public Socio getSocio(String codigo) {
-        TypedQuery<Socio> query = em.createQuery("SELECT s FROM Socio s WHERE s.numero = :codigo", Socio.class);
+        TypedQuery<Socio> query = em.createQuery("SELECT s FROM Socio s WHERE s.codigoSocio = :codigo", Socio.class);
         query.setParameter("codigo", codigo);
         List<Socio> resultados = query.getResultList();
         return resultados.isEmpty() ? null : resultados.get(0);

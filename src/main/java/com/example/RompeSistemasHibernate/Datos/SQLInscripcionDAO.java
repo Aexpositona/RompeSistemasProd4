@@ -65,7 +65,7 @@ public class SQLInscripcionDAO implements InscripcionDAO {
 
     @Override
     public List<Inscripcion> getInscripcionesPorSocio(String idSocio) {
-        TypedQuery<Inscripcion> query = em.createQuery("SELECT i FROM Inscripcion i WHERE i.socio.numero = :idSocio", Inscripcion.class);
+        TypedQuery<Inscripcion> query = em.createQuery("SELECT i FROM Inscripcion i WHERE i.socio.codigoSocio = :idSocio", Inscripcion.class);
         query.setParameter("idSocio", idSocio);
         return query.getResultList();
     }

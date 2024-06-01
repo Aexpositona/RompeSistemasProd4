@@ -57,15 +57,20 @@ public class ControlDatos {
 
     public String getSiguienteCodigo(int tipoObjeto) {
         TypedQuery<String> query;
+        String prefix;
+
         switch (tipoObjeto) {
             case 1:
                 query = entityManager.createQuery("SELECT e.codigo FROM Excursion e ORDER BY e.codigo DESC", String.class).setMaxResults(1);
+                prefix = "EXC";
                 break;
             case 2:
                 query = entityManager.createQuery("SELECT i.numero FROM Inscripcion i ORDER BY i.numero DESC", String.class).setMaxResults(1);
+                prefix = "INS";
                 break;
             case 3:
-                query = entityManager.createQuery("SELECT s.numero FROM Socio s ORDER BY s.numero DESC", String.class).setMaxResults(1);
+                query = entityManager.createQuery("SELECT s.codigoSocio FROM Socio s ORDER BY s.codigoSocio DESC", String.class).setMaxResults(1);
+                prefix = "SOC";
                 break;
             default:
                 throw new IllegalArgumentException("Tipo de objeto no válido");
@@ -73,25 +78,20 @@ public class ControlDatos {
 
         try {
             String ultimoCodigo = query.getSingleResult();
+            if (ultimoCodigo == null || !ultimoCodigo.startsWith(prefix)) {
+                throw new IllegalArgumentException("Código no válido encontrado en la base de datos");
+            }
             int numero = Integer.parseInt(ultimoCodigo.substring(3)) + 1;
-            String relleno = String.format("%03d", numero); // Ajuste para que tenga 3 dígitos
-            return ultimoCodigo.substring(0, 3) + relleno;
+            return String.format("%s%04d", prefix, numero);
         } catch (NoResultException e) {
             // No se encontró ningún resultado, entonces no hay objetos en la base de datos
-            switch (tipoObjeto) {
-                case 1:
-                    return "EXC0001";
-                case 2:
-                    return "INS0001";
-                case 3:
-                    return "SOC0001";
-                case 4:
-                    return "FED0001";
-                default:
-                    throw new IllegalArgumentException("Tipo de objeto no válido");
-            }
+            return prefix + "0001";
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al generar el siguiente código", e);
         }
     }
+
 
     // Métodos para insertar nuevos registros según los procedimientos almacenados
 

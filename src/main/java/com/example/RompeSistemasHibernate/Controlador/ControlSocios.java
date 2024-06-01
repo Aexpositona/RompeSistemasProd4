@@ -68,19 +68,19 @@ public class ControlSocios {
             case 1:
                 List<Estandar> listEstandares = estandarDAO.listarEstandares();
                 for (Estandar estandar : listEstandares) {
-                    System.out.println("Nombre: " + estandar.getNombre() + ", Código: " + estandar.getNumero() + ", NIF: " + estandar.getNif());
+                    System.out.println("Nombre: " + estandar.getNombreSocio() + ", Código: " + estandar.getCodigoSocio() + ", NIF: " + estandar.getNifSocio());
                 }
                 break;
             case 2:
                 List<Federado> listFederados = federadoDAO.listarFederados();
                 for (Federado federado : listFederados) {
-                    System.out.println("Nombre: " + federado.getNombre() + ", Código: " + federado.getNumero() + ", NIF: " + federado.getNif());
+                    System.out.println("Nombre: " + federado.getNombreSocio() + ", Código: " + federado.getCodigoSocio() + ", NIF: " + federado.getNifSocio());
                 }
                 break;
             case 3:
                 List<Infantil> listInfantiles = infantilDAO.listarInfantiles();
                 for (Infantil infantil : listInfantiles) {
-                    System.out.println("Nombre: " + infantil.getNombre() + ", Código: " + infantil.getNumero() + ", NIF: " + infantil.getNif());
+                    System.out.println("Nombre: " + infantil.getNombreSocio() + ", Código: " + infantil.getCodigoSocio() + ", NIF: " + infantil.getNifSocio());
                 }
                 break;
             default:
@@ -91,7 +91,7 @@ public class ControlSocios {
     public List<Socio> listSocios() {
         List<Socio> listSocios = socioDAO.listarSocios();
         for (Socio socio : listSocios) {
-            System.out.println("Nombre: " + socio.getNombre() + ", Código: " + socio.getNumero() + ", NIF: " + socio.getNif());
+            System.out.println("Nombre: " + socio.getNombreSocio() + ", Código: " + socio.getCodigoSocio() + ", NIF: " + socio.getNifSocio());
         }
         return listSocios;
     }
@@ -178,8 +178,8 @@ public class ControlSocios {
 
         for (Inscripcion inscripcion : listInscripciones) {
             Socio codigoSocio = inscripcion.getSocio();
-            if (codigoSocio.getNumero().equals(numeroSocio)) {
-                Excursion excursion = excursionDAO.getExcursion(codigoSocio.getNumero());
+            if (codigoSocio.getCodigoSocio().equals(numeroSocio)) {
+                Excursion excursion = excursionDAO.getExcursion(codigoSocio.getCodigoSocio());
                 totalFactura += excursion.getPrecio();
             }
         }

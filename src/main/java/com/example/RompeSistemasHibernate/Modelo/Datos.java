@@ -143,7 +143,7 @@ public class Datos {
                 String ultimoCodigo = switch (tipoObjeto) {
                     case 1 -> ((Excursion) resultList.get(0)).getCodigo();
                     case 2 -> ((Inscripcion) resultList.get(0)).getNumero();
-                    case 3 -> String.valueOf(((Socio) resultList.get(0)).getNumero());
+                    case 3 -> String.valueOf(((Socio) resultList.get(0)).getCodigoSocio());
                     case 4 -> ((Federacion) resultList.get(0)).getCodigo();
                     default -> throw new IllegalArgumentException("Tipo de objeto no válido");
                 };
@@ -200,14 +200,14 @@ public class Datos {
                         Inscripcion inscripcion = (Inscripcion) obj;
                         result.append("Inscripcion: ").append(inscripcion.getNumero())
                                 .append(", ").append(inscripcion.getFecha())
-                                .append(", ").append(inscripcion.getSocio().getNumero())
+                                .append(", ").append(inscripcion.getSocio().getCodigoSocio())
                                 .append(", ").append(inscripcion.getExcursion().getCodigo()).append("\n");
                     }
                     case 3 -> {
                         Socio socio = (Socio) obj;
-                        result.append("Socio: ").append(socio.getNombre())
-                                .append(", ").append(socio.getNumero())
-                                .append(", ").append(socio.getNif()).append("\n");
+                        result.append("Socio: ").append(socio.getNombreSocio())
+                                .append(", ").append(socio.getCodigoSocio())
+                                .append(", ").append(socio.getNifSocio()).append("\n");
                     }
                     case 4 -> {
                         Federacion federacion = (Federacion) obj;
@@ -243,7 +243,7 @@ public class Datos {
                         Inscripcion inscripcion = (Inscripcion) obj;
                         result.append("Inscripcion: ").append(inscripcion.getNumero())
                                 .append(", ").append(inscripcion.getFecha())
-                                .append(", ").append(inscripcion.getSocio().getNumero())
+                                .append(", ").append(inscripcion.getSocio().getCodigoSocio())
                                 .append(", ").append(inscripcion.getExcursion().getCodigo()).append("\n");
                     }
                 }

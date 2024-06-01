@@ -1,0 +1,29 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+
+    <persistence-unit name="AppSenderosMontanasPU" transaction-type="RESOURCE_LOCAL">
+        <class>com.example.RompeSistemasHibernate.Modelo.Socio</class>
+        <class>com.example.RompeSistemasHibernate.Modelo.Federado</class>
+        <class>com.example.RompeSistemasHibernate.Modelo.Federacion</class>
+        <class>com.example.RompeSistemasHibernate.Modelo.Infantil</class>
+        <class>com.example.RompeSistemasHibernate.Modelo.Inscripcion</class>
+        <class>com.example.RompeSistemasHibernate.Modelo.Seguro</class>
+        <class>com.example.RompeSistemasHibernate.Modelo.Estandar</class>
+        <class>com.example.RompeSistemasHibernate.Modelo.Excursion</class>
+        <!-- Más clases si es necesario -->
+
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/appsenderosmontanas"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="admin"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

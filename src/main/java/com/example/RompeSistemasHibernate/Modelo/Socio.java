@@ -1,21 +1,18 @@
 package com.example.RompeSistemasHibernate.Modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Column;
+import javax.persistence.*;
 
 /**
  * Clase Socio que define los atributos y métodos de un socio
  */
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "socio")
 public class Socio {
-
-    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idSocio;
+    private Long idSocio;
 
     @Column(nullable = false)
     private int tipo;

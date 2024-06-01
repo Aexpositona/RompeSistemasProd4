@@ -10,7 +10,7 @@ public class Federado extends Socio {
 
     // Atributos
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "federacion_codigo")
+    @JoinColumn(name = "codigoFederacion")
     private Federacion federacion;
 
     private static final int tipo = 2;

@@ -1,14 +1,14 @@
 package com.example.RompeSistemasHibernate.Modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Entity
+@DiscriminatorValue("Estandar")
 public class Estandar extends Socio {
 
-    @Enumerated(EnumType.STRING)
-    private Seguro seguro; // Enum Seguro
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "idSeguro")
+    private Seguro seguro;
 
     private static final int tipo = 1;
 

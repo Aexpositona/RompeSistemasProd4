@@ -61,7 +61,7 @@ public class ControlDatos {
 
         switch (tipoObjeto) {
             case 1:
-                query = entityManager.createQuery("SELECT e.codigo FROM Excursion e ORDER BY e.codigo DESC", String.class).setMaxResults(1);
+                query = entityManager.createQuery("SELECT e.codigoExcursion FROM Excursion e ORDER BY e.codigoExcursion DESC", String.class).setMaxResults(1);
                 prefix = "EXC";
                 break;
             case 2:

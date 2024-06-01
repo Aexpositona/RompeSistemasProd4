@@ -25,7 +25,7 @@ public class SQLExcursionDAO implements ExcursionDAO {
 
     @Override
     public Excursion getExcursion(String codigo) {
-        TypedQuery<Excursion> query = em.createQuery("SELECT e FROM Excursion e WHERE e.codigo = :codigo", Excursion.class);
+        TypedQuery<Excursion> query = em.createQuery("SELECT e FROM Excursion e WHERE e.codigoExcursion = :codigo", Excursion.class);
         query.setParameter("codigo", codigo);
         List<Excursion> resultados = query.getResultList();
         return resultados.isEmpty() ? null : resultados.get(0);
@@ -78,7 +78,7 @@ public class SQLExcursionDAO implements ExcursionDAO {
 
     @Override
     public String getUltimoCodigo() {
-        TypedQuery<String> query = em.createQuery("SELECT e.codigo FROM Excursion e ORDER BY e.codigo DESC", String.class);
+        TypedQuery<String> query = em.createQuery("SELECT e.codigoExcursion FROM Excursion e ORDER BY e.codigoExcursion DESC", String.class);
         List<String> resultados = query.setMaxResults(1).getResultList();
         return resultados.isEmpty() ? null : resultados.get(0);
     }

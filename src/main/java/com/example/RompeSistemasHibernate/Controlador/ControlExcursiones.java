@@ -48,14 +48,14 @@ public class ControlExcursiones {
     public void listExcursiones() {
         List<Excursion> excursiones = excursionDAO.getAllExcursiones();
         for (Excursion excursion : excursiones) {
-            System.out.println("Código: " + excursion.getCodigo() + ", Descripción: " + excursion.getDescripcion() + ", Fecha: " + excursion.getFecha());
+            System.out.println("Código: " + excursion.getCodigoExcursion() + ", Descripción: " + excursion.getDescripcion() + ", Fecha: " + excursion.getFecha() + ", Precio: " + excursion.getPrecio());
         }
     }
 
     public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
         List<Excursion> excursiones = excursionDAO.getExcursionesPorFecha(fechaInicial, fechaFinal);
         for (Excursion excursion : excursiones) {
-            System.out.println("Código: " + excursion.getCodigo() + ", Descripción: " + excursion.getDescripcion() + ", Fecha: " + excursion.getFecha());
+            System.out.println("Código: " + excursion.getCodigoExcursion() + ", Descripción: " + excursion.getDescripcion() + ", Fecha: " + excursion.getFecha());
         }
     }
 

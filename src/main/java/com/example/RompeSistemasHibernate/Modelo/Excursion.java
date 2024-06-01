@@ -5,15 +5,14 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import javax.persistence.Convert;
 
 @Entity
-@Table(name = "excursiones") // Nombre de la tabla en la base de datos
+@Table(name = "excursion") // Nombre de la tabla en la base de datos
 public class Excursion {
 
     @Id
     @Column(nullable = false, unique = true)
-    private String codigo;
+    private String codigoExcursion;
 
     @Column(nullable = false)
     private String descripcion;
@@ -32,14 +31,14 @@ public class Excursion {
     /**
      * Constructor de la clase Excursion que recibe parámetros para inicializar los atributos.
      *
-     * @param codigo      código de la excursión
+     * @param codigoExcursion      código de la excursión
      * @param descripcion descripción de la excursión
      * @param fecha       fecha de la excursión
      * @param duracion    duración de la excursión
      * @param precio      precio de la excursión
      */
-    public Excursion(String codigo, String descripcion, LocalDate fecha, int duracion, float precio) {
-        this.codigo = codigo;
+    public Excursion(String codigoExcursion, String descripcion, LocalDate fecha, int duracion, float precio) {
+        this.codigoExcursion = codigoExcursion;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.duracion = duracion;
@@ -52,7 +51,7 @@ public class Excursion {
      * @param excursion objeto de la clase Excursion
      */
     public Excursion(Excursion excursion) {
-        this.codigo = excursion.codigo;
+        this.codigoExcursion = excursion.codigoExcursion;
         this.descripcion = excursion.descripcion;
         this.fecha = excursion.fecha;
         this.duracion = excursion.duracion;
@@ -63,7 +62,7 @@ public class Excursion {
      * Constructor vacío para generar sobrecarga de constructores.
      */
     public Excursion() {
-        this.codigo = "";
+        this.codigoExcursion = "";
         this.descripcion = "";
         this.fecha = LocalDate.now();
         this.duracion = 0;
@@ -77,8 +76,8 @@ public class Excursion {
      *
      * @return el código de la excursión
      */
-    public String getCodigo() {
-        return codigo;
+    public String getCodigoExcursion() {
+        return codigoExcursion;
     }
 
     /**
@@ -124,8 +123,8 @@ public class Excursion {
      *
      * @param codigo el código de la excursión
      */
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCodigoExcursion(String codigo) {
+        this.codigoExcursion = codigo;
     }
 
     /**
@@ -171,7 +170,7 @@ public class Excursion {
      */
     @Override
     public String toString() {
-        return "Código: " + codigo +
+        return "Código: " + codigoExcursion +
                 "\nDescripción: " + descripcion +
                 "\nFecha: " + fecha +
                 "\nDuración: " + duracion +

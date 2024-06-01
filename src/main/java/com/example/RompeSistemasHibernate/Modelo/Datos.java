@@ -141,7 +141,7 @@ public class Datos {
             List<?> resultList = em.createQuery(query).setMaxResults(1).getResultList();
             if (!resultList.isEmpty()) {
                 String ultimoCodigo = switch (tipoObjeto) {
-                    case 1 -> ((Excursion) resultList.get(0)).getCodigo();
+                    case 1 -> ((Excursion) resultList.get(0)).getCodigoExcursion();
                     case 2 -> ((Inscripcion) resultList.get(0)).getNumero();
                     case 3 -> String.valueOf(((Socio) resultList.get(0)).getCodigoSocio());
                     case 4 -> ((Federacion) resultList.get(0)).getCodigo();
@@ -190,7 +190,7 @@ public class Datos {
                 switch (tipoObjeto) {
                     case 1 -> {
                         Excursion excursion = (Excursion) obj;
-                        result.append("Excursion: ").append(excursion.getCodigo())
+                        result.append("Excursion: ").append(excursion.getCodigoExcursion())
                                 .append(", ").append(excursion.getDescripcion())
                                 .append(", ").append(excursion.getFecha())
                                 .append(", ").append(excursion.getDuracion())
@@ -201,7 +201,7 @@ public class Datos {
                         result.append("Inscripcion: ").append(inscripcion.getNumero())
                                 .append(", ").append(inscripcion.getFecha())
                                 .append(", ").append(inscripcion.getSocio().getCodigoSocio())
-                                .append(", ").append(inscripcion.getExcursion().getCodigo()).append("\n");
+                                .append(", ").append(inscripcion.getExcursion().getCodigoExcursion()).append("\n");
                     }
                     case 3 -> {
                         Socio socio = (Socio) obj;
@@ -233,7 +233,7 @@ public class Datos {
                 switch (tipoObjeto) {
                     case 1 -> {
                         Excursion excursion = (Excursion) obj;
-                        result.append("Excursion: ").append(excursion.getCodigo())
+                        result.append("Excursion: ").append(excursion.getCodigoExcursion())
                                 .append(", ").append(excursion.getDescripcion())
                                 .append(", ").append(excursion.getFecha())
                                 .append(", ").append(excursion.getDuracion())
@@ -244,7 +244,7 @@ public class Datos {
                         result.append("Inscripcion: ").append(inscripcion.getNumero())
                                 .append(", ").append(inscripcion.getFecha())
                                 .append(", ").append(inscripcion.getSocio().getCodigoSocio())
-                                .append(", ").append(inscripcion.getExcursion().getCodigo()).append("\n");
+                                .append(", ").append(inscripcion.getExcursion().getCodigoExcursion()).append("\n");
                     }
                 }
             }

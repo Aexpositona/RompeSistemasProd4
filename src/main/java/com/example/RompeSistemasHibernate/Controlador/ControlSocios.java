@@ -147,7 +147,7 @@ public class ControlSocios {
 
         for (Inscripcion inscripcion : listInscripciones) {
             Excursion codigoExcursion = inscripcion.getExcursion();
-            Excursion excursion = excursionDAO.getExcursion(codigoExcursion.getCodigo());
+            Excursion excursion = excursionDAO.getExcursion(codigoExcursion.getCodigoExcursion());
             totalFactura += excursion.getPrecio();
         }
 
@@ -161,7 +161,7 @@ public class ControlSocios {
         for (Inscripcion inscripcion : listInscripciones) {
             Excursion codigoExcursion = inscripcion.getExcursion();
             System.out.println("Recuperado codigoExcursion: " + codigoExcursion);  // Añadir depuración
-            Excursion excursion = excursionDAO.getExcursionPorCodigo(codigoExcursion.getCodigo());
+            Excursion excursion = excursionDAO.getExcursionPorCodigo(codigoExcursion.getCodigoExcursion());
             if (excursion != null) {
                 totalFactura += excursion.getPrecio();
             } else {

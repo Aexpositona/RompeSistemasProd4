@@ -110,7 +110,7 @@ public class VistaAddExcursion {
         // Solicitamos la fecha de la excursión
         fecha = cPeticiones.pedirFecha("-- Introduzca a continuación la fecha de la excursión --", LocalDate.now(), LocalDate.now().plusYears(2));
         // Mientras no se introduzca un precio válido
-        precio = cPeticiones.pedirFloat("Introduzca el precio de la excursión: ", 0, Float.MAX_VALUE);
+        precio = cPeticiones.pedirFloat("Introduzca el precio de la excursión: ", 1, 200000);
         // Mientras no se introduzca un número de días válido
         dias = cPeticiones.pedirEntero("Introduzca los días de la excursión: ", 1, 100);
         // Añadimos la excursión

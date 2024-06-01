@@ -22,8 +22,8 @@ public class ControlDatos {
         transaction.commit();
     }
 
-    public Socio getSocio(String codigo) {
-        return entityManager.find(Socio.class, codigo);
+    public Socio getSocio(String codigoSocio) {
+        return entityManager.find(Socio.class, codigoSocio);
     }
 
     public Federacion getFederacion(String codigo) {

@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface SocioDAO {
         List<Socio> listarSocios();
-        Socio getSocio(String codigo);
+        Socio getSocio(String idSocio);
         void modificarSocio(Socio socio);
         void eliminarSocio(Socio socio);
         void insertarSocio(Socio socio);

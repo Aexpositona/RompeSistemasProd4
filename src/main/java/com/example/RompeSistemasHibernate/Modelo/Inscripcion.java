@@ -7,9 +7,6 @@ import java.time.LocalDate;
 public class Inscripcion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idInscripcion;
-
     @Column(nullable = false, unique = true)
     private String numero;
 

@@ -40,16 +40,24 @@ public class ControlInscripciones {
         }
     }
 
-    public void listInscripcionesSocio(String idSocio) throws SQLException {
-        inscripcionDAO.getInscripcionesPorSocio(idSocio);
+    public void listInscripcionesSocio(String codigoSocio) throws SQLException {
+        inscripcionDAO.getInscripcionesPorSocio(codigoSocio);
+        System.out.println("Inscripciones del socio " + codigoSocio + ":");
+        for (Inscripcion inscripcion : inscripcionDAO.getInscripcionesPorSocio(codigoSocio)) {
+            System.out.println(inscripcion);
+        }
     }
 
     public void listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
         inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
+        System.out.println("Inscripciones entre " + fechaInicial + " y " + fechaFinal + ":");
+        for (Inscripcion inscripcion : inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal)) {
+            System.out.println(inscripcion);
+        }
     }
 
-    public void removeInscripcion(String codigo) throws SQLException {
-        Inscripcion inscripcion = inscripcionDAO.getInscripcion(codigo);
+    public void removeInscripcion(String numero) throws SQLException {
+        Inscripcion inscripcion = inscripcionDAO.getInscripcion(numero);
         if (inscripcion != null) {
             inscripcionDAO.eliminarInscripcion(inscripcion);
             System.out.println("Inscripción eliminada correctamente.");
@@ -108,7 +116,7 @@ public class ControlInscripciones {
         vInscripciones.show();
     }
 
-    public boolean getInscripcion(String idInscripcion) {
-        return inscripcionDAO.getInscripcion(idInscripcion) != null;
+    public boolean getInscripcion(String numero) {
+        return inscripcionDAO.getInscripcion(numero) != null;
     }
 }

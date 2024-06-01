@@ -17,7 +17,7 @@ public class SQLEstandarDAO implements EstandarDAO {
 
     @Override
     public List<Estandar> listarEstandares() {
-        String query = "SELECT e FROM Estandar e JOIN FETCH e.seguro";
+        String query = "SELECT e FROM Estandar e ";
         TypedQuery<Estandar> tq = em.createQuery(query, Estandar.class);
         return tq.getResultList();
     }

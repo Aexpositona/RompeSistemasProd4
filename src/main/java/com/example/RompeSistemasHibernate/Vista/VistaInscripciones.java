@@ -51,11 +51,11 @@ public class VistaInscripciones {
     public void buttonRemoveInscripcion() throws SQLException {
         txtMostrarMensaje("\n-- Eliminando inscripción --\n\n");
         cInscripciones.listInscripciones();
-        String idInscripcion = cPeticiones.pedirString("Introduzca el código de la inscripción a eliminar: ");
+        String numero = cPeticiones.pedirString("Introduzca el código de la inscripción a eliminar: ");
 
-        if (inscripcionExiste(idInscripcion)) {
+        if (inscripcionExiste(numero)) {
             if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la inscripción? (S/N): ").equalsIgnoreCase("S")) {
-                cInscripciones.removeInscripcion(idInscripcion);
+                cInscripciones.removeInscripcion(numero);
                 txtMostrarMensaje("Inscripción eliminada correctamente.\n\n");
             } else {
                 txtMostrarMensaje("Operación cancelada.\n");
@@ -65,8 +65,8 @@ public class VistaInscripciones {
         }
     }
 
-    private boolean inscripcionExiste(String idInscripcion) throws SQLException {
-        return cInscripciones.getInscripcion(idInscripcion);
+    private boolean inscripcionExiste(String numero) throws SQLException {
+        return cInscripciones.getInscripcion(numero);
     }
 
     public void buttonMenuListInscripciones() throws SQLException {

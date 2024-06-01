@@ -16,7 +16,7 @@ public class SQLFederadoDAO implements FederadoDAO {
 
     @Override
     public List<Federado> listarFederados() {
-        String query = "SELECT f FROM Federado f JOIN FETCH f.federacion";
+        String query = "SELECT f FROM Federado f";
         TypedQuery<Federado> tq = em.createQuery(query, Federado.class);
         return tq.getResultList();
     }

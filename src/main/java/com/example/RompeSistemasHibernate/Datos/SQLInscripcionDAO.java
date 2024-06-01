@@ -54,8 +54,8 @@ public class SQLInscripcionDAO implements InscripcionDAO {
     }
 
     @Override
-    public Inscripcion buscarInscripcion(String id) {
-        return em.find(Inscripcion.class, id);
+    public Inscripcion buscarInscripcion(String numero) {
+        return em.find(Inscripcion.class, numero);
     }
 
     @Override
@@ -66,11 +66,11 @@ public class SQLInscripcionDAO implements InscripcionDAO {
     }
 
     @Override
-    public List<Inscripcion> getInscripcionesPorSocio(String idSocio) {
-        TypedQuery<Inscripcion> query = em.createQuery("""
-                SELECT i FROM Inscripcion i WHERE i.socio.codigoSocio = :idSocio""", Inscripcion.class);
-        query.setParameter("idSocio", idSocio);
-        return query.getResultList();
+    public List<Inscripcion> getInscripcionesPorSocio(String codigoSocio) {
+        String query = "SELECT i FROM Inscripcion i WHERE i.socio.codigoSocio = :codigoSocio";
+        TypedQuery<Inscripcion> tq = em.createQuery(query, Inscripcion.class);
+        tq.setParameter("codigoSocio", codigoSocio);
+        return tq.getResultList();
     }
 
     @Override
@@ -82,8 +82,8 @@ public class SQLInscripcionDAO implements InscripcionDAO {
     }
 
     @Override
-    public Inscripcion getInscripcion(String id) {
-        return em.find(Inscripcion.class, id);
+    public Inscripcion getInscripcion(String numero) {
+        return em.find(Inscripcion.class, numero);
     }
 
     @Override

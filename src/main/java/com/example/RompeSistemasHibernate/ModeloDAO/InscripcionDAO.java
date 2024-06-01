@@ -9,11 +9,11 @@ public interface InscripcionDAO {
         void insertarInscripcion(Inscripcion inscripcion);
         void modificarInscripcion(Inscripcion inscripcion);
         void eliminarInscripcion(Inscripcion inscripcion);
-        Inscripcion buscarInscripcion(String id);
+        Inscripcion buscarInscripcion(String numero);
         List<Inscripcion> listarInscripciones();
-        List<Inscripcion> getInscripcionesPorSocio(String idSocio);
+        List<Inscripcion> getInscripcionesPorSocio(String codigoSocio);
         List<Inscripcion> getInscripcionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal);
-        Inscripcion getInscripcion(String id);
+        Inscripcion getInscripcion(String numero);
         List<Inscripcion> getAllInscripciones();
 }
 

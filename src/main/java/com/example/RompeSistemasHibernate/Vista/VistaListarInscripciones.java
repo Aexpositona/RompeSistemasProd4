@@ -74,8 +74,8 @@ public class VistaListarInscripciones {
      * Método para listar las inscripciones de un socio.
      */
     public void buttonListInscripcionesSocio() throws SQLException {
-        String idSocio = cPeticiones.pedirString("Introduzca el código del socio: ");
-        cInscripciones.listInscripcionesSocio(idSocio);
+        String codigoSocio = cPeticiones.pedirString("Introduzca el código del socio: ");
+        cInscripciones.listInscripcionesSocio(codigoSocio);
     }
 
     /**

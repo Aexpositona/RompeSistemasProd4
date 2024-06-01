@@ -34,7 +34,10 @@ public class ControlInscripciones {
     }
 
     public void listInscripciones() throws SQLException {
-        inscripcionDAO.getAllInscripciones();
+        inscripcionDAO.listarInscripciones();
+        for (Inscripcion inscripcion : inscripcionDAO.getAllInscripciones()) {
+            System.out.println(inscripcion);
+        }
     }
 
     public void listInscripcionesSocio(String idSocio) throws SQLException {

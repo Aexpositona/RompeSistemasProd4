@@ -1,25 +1,24 @@
 package com.example.RompeSistemasHibernate.Modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 public class Inscripcion {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idInscripcion;
+
     @Column(nullable = false, unique = true)
     private String numero;
 
     @ManyToOne
-    @JoinColumn(name = "socio_id", nullable = false)
+    @JoinColumn(name = "idSocio", nullable = false)
     private Socio socio;
 
     @ManyToOne
-    @JoinColumn(name = "excursion_codigo", nullable = false)
+    @JoinColumn(name = "codigoExcursion", nullable = false)
     private Excursion excursion;
 
     @Column(nullable = false)

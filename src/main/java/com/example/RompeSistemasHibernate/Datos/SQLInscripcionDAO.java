@@ -1,6 +1,7 @@
 package com.example.RompeSistemasHibernate.Datos;
 
 import com.example.RompeSistemasHibernate.Modelo.Inscripcion;
+import com.example.RompeSistemasHibernate.Modelo.Socio;
 import com.example.RompeSistemasHibernate.ModeloDAO.InscripcionDAO;
 
 import javax.persistence.EntityManager;
@@ -59,13 +60,15 @@ public class SQLInscripcionDAO implements InscripcionDAO {
 
     @Override
     public List<Inscripcion> listarInscripciones() {
-        TypedQuery<Inscripcion> query = em.createQuery("SELECT i FROM Inscripcion i", Inscripcion.class);
-        return query.getResultList();
+        String query = "SELECT i FROM Inscripcion i";
+        TypedQuery<Inscripcion> tq = em.createQuery(query, Inscripcion.class);
+        return tq.getResultList();
     }
 
     @Override
     public List<Inscripcion> getInscripcionesPorSocio(String idSocio) {
-        TypedQuery<Inscripcion> query = em.createQuery("SELECT i FROM Inscripcion i WHERE i.socio.codigoSocio = :idSocio", Inscripcion.class);
+        TypedQuery<Inscripcion> query = em.createQuery("""
+                SELECT i FROM Inscripcion i WHERE i.socio.codigoSocio = :idSocio""", Inscripcion.class);
         query.setParameter("idSocio", idSocio);
         return query.getResultList();
     }

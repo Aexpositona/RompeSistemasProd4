@@ -30,6 +30,7 @@ public class VistaAddInscripcion {
      * @param cInscripciones ControlInscripciones
      */
     public VistaAddInscripcion(ControlInscripciones cInscripciones) throws SQLException {
+        this.em = cInscripciones.getEntityManager();
         this.cInscripciones = cInscripciones;
         this.cPeticiones = cInscripciones.getControlPeticiones();
         this.cDatos = cInscripciones.getControlDatos();
@@ -43,6 +44,7 @@ public class VistaAddInscripcion {
      * @param vistaAddInscripcion VistaAddInscripcion a copiar.
      */
     public VistaAddInscripcion(VistaAddInscripcion vistaAddInscripcion) {
+        this.em = vistaAddInscripcion.getControlInscripciones().getEntityManager();
         this.cInscripciones = vistaAddInscripcion.getControlInscripciones();
         this.cPeticiones = vistaAddInscripcion.getControlPeticiones();
         this.cDatos = vistaAddInscripcion.getControlDatos();
@@ -54,6 +56,7 @@ public class VistaAddInscripcion {
      * Método constructor vacío de la clase VistaAddInscripcion.
      */
     public VistaAddInscripcion() {
+        this.em = null;
         this.cInscripciones = null;
         this.cPeticiones = null;
         this.cDatos = null;

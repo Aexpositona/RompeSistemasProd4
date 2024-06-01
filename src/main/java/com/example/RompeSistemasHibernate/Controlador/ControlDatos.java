@@ -140,7 +140,7 @@ public class ControlDatos {
         // Configurar propiedades del objeto Excursion
 
         SQLExcursionDAO excursionDAO = new SQLExcursionDAO(entityManager);
-        excursionDAO.addExcursion(excursion);
+        excursionDAO.insertarExcursion(excursion);
 
         return excursion;
     }

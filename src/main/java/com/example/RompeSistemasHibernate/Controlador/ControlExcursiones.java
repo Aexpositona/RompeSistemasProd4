@@ -31,14 +31,7 @@ public class ControlExcursiones {
     }
 
     public void addExcursion(Excursion excursion) {
-        entityManager.getTransaction().begin();
-        try {
-            excursionDAO.addExcursion(excursion);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw e;
-        }
+        excursionDAO.insertarExcursion(excursion);
     }
 
     public void removeExcursion(Excursion excursion) {

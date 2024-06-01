@@ -32,7 +32,7 @@ public class SQLExcursionDAO implements ExcursionDAO {
     }
 
     @Override
-    public void addExcursion(Excursion excursion) {
+    public void insertarExcursion(Excursion excursion) {
         em.getTransaction().begin();
         try {
             em.persist(excursion);

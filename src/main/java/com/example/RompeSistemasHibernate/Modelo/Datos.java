@@ -47,7 +47,7 @@ public class Datos {
         em.getTransaction().begin();
         try {
             switch (tipoObjeto) {
-                case 1 -> fabricaDAO.getExcursionDAO().addExcursion((Excursion) objeto);
+                case 1 -> fabricaDAO.getExcursionDAO().insertarExcursion((Excursion) objeto);
                 case 2 -> fabricaDAO.getInscripcionDAO().insertarInscripcion((Inscripcion) objeto);
                 case 3 -> {
                     if (objeto instanceof Infantil) {

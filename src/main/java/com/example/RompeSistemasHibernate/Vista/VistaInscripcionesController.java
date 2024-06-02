@@ -3,7 +3,9 @@ package com.example.RompeSistemasHibernate.Vista;
 import com.example.RompeSistemasHibernate.Controlador.ControlInscripciones;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,6 +14,8 @@ public class VistaInscripcionesController {
 
     @FXML
     private TextArea textArea;
+    @FXML
+    private Button backButton;
 
     private ControlInscripciones controlInscripciones;
 
@@ -22,7 +26,9 @@ public class VistaInscripcionesController {
 
     @FXML
     public void initialize() {
-        textArea.setText("");
+        if (textArea != null) {
+            textArea.setText("");
+        }
     }
 
     @FXML
@@ -42,6 +48,7 @@ public class VistaInscripcionesController {
 
     @FXML
     private void handleAtras(ActionEvent event) {
-        textArea.setText("Volviendo al menú principal...\n\n");
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        stage.close();
     }
 }

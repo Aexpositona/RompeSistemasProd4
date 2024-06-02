@@ -38,9 +38,9 @@ public class APPSenderosMontanas extends Application {
         cPeticiones = new ControlPeticiones();
         cDatos = new ControlDatos(entityManager);
 
-        cInscripciones = new ControlInscripciones(entityManager, cDatos, cPeticiones);
         cSocios = new ControlSocios(this, cDatos, cPeticiones, entityManager);
         cExcursiones = new ControlExcursiones(this, cDatos, cPeticiones, entityManager);
+        cInscripciones = new ControlInscripciones(entityManager, cDatos, cPeticiones, cSocios, cExcursiones);
         cMenuPrincipal = new ControlMenuPrincipal(this, cDatos, cPeticiones, entityManager);
     }
 

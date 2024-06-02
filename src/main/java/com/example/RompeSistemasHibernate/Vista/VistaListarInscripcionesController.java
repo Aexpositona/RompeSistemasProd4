@@ -1,16 +1,18 @@
 package com.example.RompeSistemasHibernate.Vista;
 
 import com.example.RompeSistemasHibernate.Controlador.ControlInscripciones;
-import com.example.RompeSistemasHibernate.Controlador.ControlPeticiones;
+import com.example.RompeSistemasHibernate.Modelo.Inscripcion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class VistaListarInscripcionesController {
 
@@ -24,16 +26,7 @@ public class VistaListarInscripcionesController {
     private DatePicker fechaFinalPicker;
 
     @FXML
-    private Button listarTodasButton;
-
-    @FXML
-    private Button listarPorSocioButton;
-
-    @FXML
-    private Button listarPorFechasButton;
-
-    @FXML
-    private Button atrasButton;
+    private ListView<String> listViewInscripciones;
 
     private ControlInscripciones controlInscripciones;
     private Stage stage;
@@ -46,9 +39,13 @@ public class VistaListarInscripcionesController {
     @FXML
     private void handleListarTodas(ActionEvent event) {
         try {
-            controlInscripciones.listInscripciones();
+            List<Inscripcion> inscripciones = controlInscripciones.listInscripciones();
+            listViewInscripciones.getItems().clear();
+            for (Inscripcion inscripcion : inscripciones) {
+                listViewInscripciones.getItems().add("Código: " + inscripcion.getNumero() + ", Fecha: " + inscripcion.getFecha() + ", Socio: " + inscripcion.getSocio().getCodigoSocio() + ", Excursión: " + inscripcion.getExcursion().getCodigoExcursion());
+            }
         } catch (SQLException e) {
-            txtMostrarMensaje("Error al listar inscripciones: " + e.getMessage());
+            listViewInscripciones.getItems().add("Error al listar inscripciones: " + e.getMessage());
         }
     }
 
@@ -56,9 +53,13 @@ public class VistaListarInscripcionesController {
     private void handleListarPorSocio(ActionEvent event) {
         String codigoSocio = codigoSocioField.getText();
         try {
-            controlInscripciones.listInscripcionesSocio(codigoSocio);
+            List<Inscripcion> inscripciones = controlInscripciones.listInscripcionesSocio(codigoSocio);
+            listViewInscripciones.getItems().clear();
+            for (Inscripcion inscripcion : inscripciones) {
+                listViewInscripciones.getItems().add("Código: " + inscripcion.getNumero() + ", Fecha: " + inscripcion.getFecha() + ", Socio: " + inscripcion.getSocio().getCodigoSocio() + ", Excursión: " + inscripcion.getExcursion().getCodigoExcursion());
+            }
         } catch (SQLException e) {
-            txtMostrarMensaje("Error al listar inscripciones: " + e.getMessage());
+            listViewInscripciones.getItems().add("Error al listar inscripciones: " + e.getMessage());
         }
     }
 
@@ -66,19 +67,28 @@ public class VistaListarInscripcionesController {
     private void handleListarPorFechas(ActionEvent event) {
         LocalDate fechaInicial = fechaInicialPicker.getValue();
         LocalDate fechaFinal = fechaFinalPicker.getValue();
+        if (fechaInicial == null || fechaFinal == null) {
+            listViewInscripciones.getItems().add("Debe seleccionar ambas fechas.");
+            return;
+        }
         try {
-            controlInscripciones.listInscripcionesFechas(fechaInicial, fechaFinal);
+            List<Inscripcion> inscripciones = controlInscripciones.listInscripcionesFechas(fechaInicial, fechaFinal);
+            listViewInscripciones.getItems().clear();
+            for (Inscripcion inscripcion : inscripciones) {
+                listViewInscripciones.getItems().add("Código: " + inscripcion.getNumero() + ", Fecha: " + inscripcion.getFecha() + ", Socio: " + inscripcion.getSocio().getCodigoSocio() + ", Excursión: " + inscripcion.getExcursion().getCodigoExcursion());
+            }
         } catch (SQLException e) {
-            txtMostrarMensaje("Error al listar inscripciones: " + e.getMessage());
+            listViewInscripciones.getItems().add("Error al listar inscripciones: " + e.getMessage());
         }
     }
 
     @FXML
     private void handleAtras(ActionEvent event) {
+        try {
+            controlInscripciones.showVistaInscripciones();
+        } catch (IOException e) {
+            listViewInscripciones.getItems().add("Error al volver al menú de inscripciones.");
+        }
         stage.close();
-    }
-
-    private void txtMostrarMensaje(String mensaje) {
-        System.out.print(mensaje);
     }
 }

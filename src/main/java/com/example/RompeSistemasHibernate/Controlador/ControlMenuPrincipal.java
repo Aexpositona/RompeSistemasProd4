@@ -36,9 +36,9 @@ public class ControlMenuPrincipal {
      */
     public ControlMenuPrincipal(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones, EntityManager em) throws SQLException, IOException {
         this.em = em;
-        this.cInscripciones = new ControlInscripciones(em, cDatos, cPeticiones);
         this.cSocios = new ControlSocios(app, cDatos, cPeticiones, em);
         this.cExcursiones = new ControlExcursiones(app, cDatos, cPeticiones, em);
+        this.cInscripciones = new ControlInscripciones(em, cDatos, cPeticiones, cSocios, cExcursiones);
         this.cPeticiones = cPeticiones;
         initVistaMenuPrincipal();
     }
@@ -62,10 +62,10 @@ public class ControlMenuPrincipal {
      * Constructor de ControlMenuPrincipal vacío.
      */
     public ControlMenuPrincipal() {
-        this.cInscripciones = cInscripciones;
-        this.cSocios = cSocios;
-        this.cExcursiones = cExcursiones;
-        this.cPeticiones = cPeticiones;
+        this.cInscripciones = null;
+        this.cSocios = null;
+        this.cExcursiones = null;
+        this.cPeticiones = null;
     }
 
     private void initVistaMenuPrincipal() throws IOException {
@@ -77,7 +77,6 @@ public class ControlMenuPrincipal {
         stage.setTitle("Senderos y Montañas");
         stage.show();
     }
-
 
     // Getters
 

@@ -1,9 +1,11 @@
 package com.example.RompeSistemasHibernate.Controlador;
 
-import com.example.RompeSistemasHibernate.Datos.*;
-import com.example.RompeSistemasHibernate.Modelo.*;
-import com.example.RompeSistemasHibernate.Vista.*;
-import com.example.RompeSistemasHibernate.ModeloDAO.*;
+import com.example.RompeSistemasHibernate.Datos.SQLInscripcionDAO;
+import com.example.RompeSistemasHibernate.Modelo.Inscripcion;
+import com.example.RompeSistemasHibernate.ModeloDAO.InscripcionDAO;
+import com.example.RompeSistemasHibernate.Vista.VistaAddInscripcionController;
+import com.example.RompeSistemasHibernate.Vista.VistaListarInscripcionesController;
+import com.example.RompeSistemasHibernate.Vista.VistaInscripcionesController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -18,41 +20,33 @@ public class ControlInscripciones {
     private EntityManager entityManager;
     private ControlDatos cDatos;
     private InscripcionDAO inscripcionDAO;
-    private VistaAddInscripcionController vAddInscripcionController;
-    private VistaListarInscripcionesController vListarInscripcionesController;
-    private VistaInscripcionesController vInscripcionesController;
     private ControlPeticiones cPeticiones;
+    private ControlSocios controlSocios;
+    private ControlExcursiones controlExcursiones;
 
-    public ControlInscripciones(EntityManager entityManager, ControlDatos cDatos, ControlPeticiones cPeticiones) {
+    public ControlInscripciones(EntityManager entityManager, ControlDatos cDatos, ControlPeticiones cPeticiones, ControlSocios controlSocios, ControlExcursiones controlExcursiones) {
         this.entityManager = entityManager;
         this.cDatos = cDatos;
         this.cPeticiones = cPeticiones;
         this.inscripcionDAO = new SQLInscripcionDAO(entityManager);
+        this.controlSocios = controlSocios;
+        this.controlExcursiones = controlExcursiones;
     }
 
     public void addInscripcion(Inscripcion inscripcion) throws SQLException {
         inscripcionDAO.insertarInscripcion(inscripcion);
     }
 
-    public void listInscripciones() throws SQLException {
-        List<Inscripcion> inscripciones = inscripcionDAO.getAllInscripciones();
-        for (Inscripcion inscripcion : inscripciones) {
-            System.out.println("Código: " + inscripcion.getNumero() + ", Fecha: " + inscripcion.getFecha() + ", Socio: " + inscripcion.getSocio().getCodigoSocio() + ", Excursión: " + inscripcion.getExcursion().getCodigoExcursion());
-        }
+    public List<Inscripcion> listInscripciones() throws SQLException {
+        return inscripcionDAO.getAllInscripciones();
     }
 
-    public void listInscripcionesSocio(String codigoSocio) throws SQLException {
-        List<Inscripcion> inscripciones = inscripcionDAO.getInscripcionesPorSocio(codigoSocio);
-        for (Inscripcion inscripcion : inscripciones) {
-            System.out.println("Código: " + inscripcion.getNumero() + ", Fecha: " + inscripcion.getFecha() + ", Socio: " + inscripcion.getSocio().getCodigoSocio() + ", Excursión: " + inscripcion.getExcursion().getCodigoExcursion());
-        }
+    public List<Inscripcion> listInscripcionesSocio(String codigoSocio) throws SQLException {
+        return inscripcionDAO.getInscripcionesPorSocio(codigoSocio);
     }
 
-    public void listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
-        List<Inscripcion> inscripciones = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
-        for (Inscripcion inscripcion : inscripciones) {
-            System.out.println("Código: " + inscripcion.getNumero() + ", Fecha: " + inscripcion.getFecha() + ", Socio: " + inscripcion.getSocio().getCodigoSocio() + ", Excursión: " + inscripcion.getExcursion().getCodigoExcursion());
-        }
+    public List<Inscripcion> listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
+        return inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
     }
 
     public void showVistaRemoveInscripcion() throws SQLException {
@@ -84,7 +78,7 @@ public class ControlInscripciones {
         Stage stage = new Stage();
         stage.setScene(new Scene(loader.load()));
         VistaAddInscripcionController controller = loader.getController();
-        controller.initialize();
+        controller.initialize(this, controlSocios, controlExcursiones, stage);
         stage.setTitle("Añadir Inscripción");
         stage.show();
     }
@@ -104,7 +98,7 @@ public class ControlInscripciones {
         Stage stage = new Stage();
         stage.setScene(new Scene(loader.load()));
         VistaInscripcionesController controller = loader.getController();
-        controller.initialize();
+        controller.initialize(this, stage);
         stage.setTitle("Menú Inscripciones");
         stage.show();
     }

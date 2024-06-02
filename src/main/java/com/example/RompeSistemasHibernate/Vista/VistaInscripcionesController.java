@@ -18,7 +18,12 @@ public class VistaInscripcionesController {
     private Button backButton;
 
     private ControlInscripciones controlInscripciones;
+    private Stage stage;
 
+    public void initialize(ControlInscripciones controlInscripciones, Stage stage) {
+        this.controlInscripciones = controlInscripciones;
+        this.stage = stage;
+    }
     public void setControlInscripciones(ControlInscripciones controlInscripciones) {
         this.controlInscripciones = controlInscripciones;
         initialize();

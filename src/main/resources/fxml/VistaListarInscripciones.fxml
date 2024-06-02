@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
@@ -15,6 +16,7 @@
         <DatePicker fx:id="fechaInicialPicker" promptText="Fecha inicial"/>
         <DatePicker fx:id="fechaFinalPicker" promptText="Fecha final"/>
         <Button text="Listar inscripción por fechas" onAction="#handleListarPorFechas"/>
+        <ListView fx:id="listViewInscripciones"/>
         <Button text="Atrás" onAction="#handleAtras"/>
     </children>
     <padding>

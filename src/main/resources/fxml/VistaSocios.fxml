@@ -17,4 +17,7 @@
     <Button fx:id="btnMostrarFacturaFechasSocio" text="Mostrar factura entre dos fechas de un socio" onAction="#handleButtonMostrarFacturaFechasSocio"/>
     <Button fx:id="btnAtras" text="Atrás" onAction="#handleButtonAtras"/>
     <Label fx:id="lblMensaje" text=""/>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
 </VBox>

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<VBox alignment="CENTER_LEFT" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.RompeSistemasHibernate.Vista.VistaMenuPrincipalController">
     <Label text="************ MENÚ PRINCIPAL ************"/>
     <Button fx:id="btnInscripciones" text="Inscripciones" onAction="#handleButtonVistaInscripciones"/>
@@ -13,4 +13,7 @@
     <Button fx:id="btnExcursiones" text="Excursiones" onAction="#handleButtonVistaExcursiones"/>
     <Button fx:id="btnSalir" text="Salir" onAction="#handleButtonVistaSalir"/>
     <Label fx:id="lblMensaje" text=""/>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
 </VBox>

@@ -29,5 +29,8 @@
     </HBox>
 
     <Label fx:id="labelMensaje" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2"/>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
 </GridPane>
 

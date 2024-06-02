@@ -31,7 +31,6 @@ public class VistaAddSocioController {
 
     public void setControlSocios(ControlSocios controlSocios) {
         this.controlSocios = controlSocios;
-        initialize();
     }
 
     @FXML

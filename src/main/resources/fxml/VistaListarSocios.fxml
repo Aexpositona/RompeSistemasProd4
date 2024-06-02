@@ -3,7 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.RompeSistemasHibernate.Vista.VistaListarSociosController">
@@ -12,9 +14,15 @@
     </padding>
 
     <Label text="************ MENÚ LISTAR SOCIOS ************"/>
+
+    <!-- Asignar el ToggleGroup a cada RadioButton -->
+    <RadioButton fx:id="radioEstandar" text="Estándar" />
+    <RadioButton fx:id="radioFederado" text="Federado" />
+    <RadioButton fx:id="radioInfantil" text="Infantil" />
+
     <Button fx:id="btnListarPorTipo" text="Listar por tipo de socio" onAction="#handleListarPorTipo"/>
     <Button fx:id="btnListarTodos" text="Listar todos los socios" onAction="#handleListarTodos"/>
     <Button fx:id="btnAtras" text="Atrás" onAction="#handleAtras"/>
-    <TextArea fx:id="textArea" prefHeight="200" prefWidth="400"/>
+    <ListView fx:id="listViewSocios" prefHeight="200" prefWidth="400"/>
     <Label fx:id="labelMensaje"/>
 </VBox>

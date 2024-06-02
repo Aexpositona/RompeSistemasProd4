@@ -28,11 +28,10 @@ public class ControlSocios {
     private ExcursionDAO excursionDAO;
     private InscripcionDAO inscripcionDAO;
     private EntityManager em;
-    private ControlSocios cSocios;
 
     public ControlSocios(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones, EntityManager em) {
         this.app = app;
-        this.cPeticiones = new ControlPeticiones();
+        this.cPeticiones = cPeticiones;
         this.cDatos = cDatos;
         this.em = em;
         this.socioDAO = new SQLSocioDAO(em);
@@ -49,7 +48,7 @@ public class ControlSocios {
         Stage stage = new Stage();
         stage.setScene(new Scene(loader.load()));
         VistaSociosController vSociosController = loader.getController();
-        vSociosController.initialize(cSocios, stage);
+        vSociosController.initialize(this, stage);
         stage.setTitle("Gestión de Socios");
         stage.show();
     }
@@ -69,7 +68,7 @@ public class ControlSocios {
         Stage stage = new Stage();
         stage.setScene(new Scene(loader.load()));
         VistaListarSociosController vListarSociosController = loader.getController();
-        vListarSociosController.setControlSocios(this);
+        vListarSociosController.initialize(this, stage);
         stage.setTitle("Listar Socios");
         stage.show();
     }
@@ -204,9 +203,5 @@ public class ControlSocios {
 
     public Socio getSocio(String idSocio) {
         return socioDAO.getSocio(idSocio);
-    }
-
-    public ControlPeticiones getcPeticiones() {
-        return cPeticiones;
     }
 }

@@ -1,43 +1,90 @@
 package com.example.RompeSistemasHibernate.Vista;
 
 import com.example.RompeSistemasHibernate.Controlador.ControlSocios;
+import com.example.RompeSistemasHibernate.Modelo.Socio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class VistaListarSociosController {
 
     @FXML
-    private TextArea textArea;
+    private ListView<String> listViewSocios;
+    @FXML
+    private RadioButton radioEstandar;
+    @FXML
+    private RadioButton radioFederado;
+    @FXML
+    private RadioButton radioInfantil;
 
+    private ToggleGroup toggleGroupTipoSocio = new ToggleGroup();
     private ControlSocios controlSocios;
+    private Stage stage;
 
-    public void setControlSocios(ControlSocios controlSocios) {
+    public void initialize(ControlSocios controlSocios, Stage stage) {
         this.controlSocios = controlSocios;
-        initialize();
+        this.stage = stage;
+        setupToggleGroup();
+    }
+
+    private void setupToggleGroup() {
+        radioEstandar.setToggleGroup(toggleGroupTipoSocio);
+        radioFederado.setToggleGroup(toggleGroupTipoSocio);
+        radioInfantil.setToggleGroup(toggleGroupTipoSocio);
     }
 
     @FXML
-    public void initialize() {
-        textArea.setText("");
+    private void handleListarPorTipo(ActionEvent event) {
+        RadioButton selectedRadioButton = (RadioButton) toggleGroupTipoSocio.getSelectedToggle();
+        if (selectedRadioButton == null) {
+            listViewSocios.getItems().clear();
+            listViewSocios.getItems().add("Debe seleccionar un tipo de socio.");
+            return;
+        }
+
+        String tipoSocio = selectedRadioButton.getText();
+        int tipo;
+
+        switch (tipoSocio) {
+            case "Estándar":
+                tipo = 1;
+                break;
+            case "Federado":
+                tipo = 2;
+                break;
+            case "Infantil":
+                tipo = 3;
+                break;
+            default:
+                listViewSocios.getItems().clear();
+                listViewSocios.getItems().add("Tipo de socio no válido.");
+                return;
+        }
+
+        List<? extends Socio> socios = controlSocios.listTipoSocios(tipo);
+        listViewSocios.getItems().clear();
+        for (Socio socio : socios) {
+            listViewSocios.getItems().add(socio.toString());
+        }
     }
 
     @FXML
-    private void handleListarPorTipo(ActionEvent event) throws SQLException {
-        int tipo = controlSocios.getControlPeticiones().pedirEntero(
-                "Introduzca el tipo de socio a listar:\n 1. Estándar\n 2. Federado\n 3. Infantil\n Seleccione una opción (1, 2 o 3): ",
-                1,
-                3
-        );
-        String resultado = controlSocios.listTipoSocios(tipo).toString();
-        textArea.setText(resultado);
+    private void handleListarTodos(ActionEvent event) {
+        List<Socio> socios = controlSocios.listSocios();
+        listViewSocios.getItems().clear();
+        for (Socio socio : socios) {
+            listViewSocios.getItems().add(socio.toString());
+        }
     }
 
     @FXML
-    private void handleListarTodos(ActionEvent event) throws SQLException {
-        String resultado = controlSocios.listSocios().toString();
-        textArea.setText(resultado);
+    private void handleAtras(ActionEvent event) {
+        stage.close();
     }
 }

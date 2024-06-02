@@ -1,16 +1,19 @@
 package com.example.RompeSistemasHibernate.Controlador;
 
-import com.example.RompeSistemasHibernate.Datos.*;
-import com.example.RompeSistemasHibernate.Modelo.*;
-import com.example.RompeSistemasHibernate.ModeloDAO.*;
+import com.example.RompeSistemasHibernate.Datos.SQLExcursionDAO;
+import com.example.RompeSistemasHibernate.Modelo.Excursion;
+import com.example.RompeSistemasHibernate.ModeloDAO.ExcursionDAO;
 import com.example.RompeSistemasHibernate.Vista.VistaAddExcursionController;
 import com.example.RompeSistemasHibernate.Vista.VistaListarExcursionesController;
+import com.example.RompeSistemasHibernate.Vista.VistaExcursionesController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,28 +23,34 @@ public class ControlExcursiones {
     private ExcursionDAO excursionDAO;
     private ControlPeticiones cPeticiones;
     private Stage primaryStage;
-    private Excursion excursion;
 
     public ControlExcursiones(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones, EntityManager entityManager) {
         this.entityManager = entityManager;
         this.cDatos = cDatos;
         this.cPeticiones = cPeticiones;
         this.excursionDAO = new SQLExcursionDAO(entityManager);
-        this.excursion = excursion;
     }
 
     public void addExcursion(Excursion excursion) {
         excursionDAO.insertarExcursion(excursion);
     }
 
-    public void removeExcursion(Excursion excursion) {
-        entityManager.getTransaction().begin();
-        try {
-            excursionDAO.deleteExcursion(this.excursion);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw e;
+    public void removeExcursion(String codigo) throws SQLException {
+        EntityTransaction transaction = entityManager.getTransaction();
+        Excursion excursion = excursionDAO.getExcursionPorCodigo(codigo);
+        if (excursion != null) {
+            if (!transaction.isActive()) {
+                transaction.begin();
+            }
+            try {
+                excursionDAO.deleteExcursion(excursion);
+                transaction.commit();
+            } catch (Exception e) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+                throw e;
+            }
         }
     }
 
@@ -77,6 +86,8 @@ public class ControlExcursiones {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VistaExcursiones.fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(loader.load()));
+        VistaExcursionesController controller = loader.getController();
+        controller.initialize(this, stage);
         stage.setTitle("Gestión de Excursiones");
         stage.show();
     }

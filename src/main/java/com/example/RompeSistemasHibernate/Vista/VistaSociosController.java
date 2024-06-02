@@ -6,6 +6,7 @@ import com.example.RompeSistemasHibernate.Modelo.Socio;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ public class VistaSociosController {
 
     private ControlSocios cSocios;
     private ControlPeticiones cPeticiones;
+    private Stage stage;
 
     @FXML
     private Button btnAddSocio;
@@ -36,9 +38,10 @@ public class VistaSociosController {
     @FXML
     private Label lblMensaje;
 
-    public void initialize() {
+    public void initialize(ControlSocios cSocios, Stage stage) {
         this.cSocios = cSocios;
         this.cPeticiones = cSocios.getControlPeticiones();
+        this.stage = stage;
     }
 
     @FXML
@@ -90,14 +93,11 @@ public class VistaSociosController {
     @FXML
     private void handleButtonAtras() {
         txtMostrarMensaje("Volviendo al menú principal...\n\n");
+        stage.close();
     }
 
     public void txtMostrarMensaje(String mensaje) {
         lblMensaje.setText(mensaje);
     }
 
-    public void setControlSocios(ControlSocios cSocios) {
-        this.cSocios = cSocios;
-        initialize();
-    }
 }

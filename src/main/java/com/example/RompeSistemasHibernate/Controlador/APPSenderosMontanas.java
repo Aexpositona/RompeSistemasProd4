@@ -41,7 +41,7 @@ public class APPSenderosMontanas extends Application {
         cSocios = new ControlSocios(this, cDatos, cPeticiones, entityManager);
         cExcursiones = new ControlExcursiones(this, cDatos, cPeticiones, entityManager);
         cInscripciones = new ControlInscripciones(entityManager, cDatos, cPeticiones, cSocios, cExcursiones);
-        cMenuPrincipal = new ControlMenuPrincipal(this, cDatos, cPeticiones, entityManager);
+        cMenuPrincipal = new ControlMenuPrincipal(this, cDatos, cPeticiones, entityManager, cSocios);
     }
 
     private void mostrarMenuPrincipal() throws IOException {

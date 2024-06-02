@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.RompeSistemasHibernate.Vista.VistaExcursionesController">
     <children>
         <Button text="Añadir excursión" onAction="#handleAddExcursion"/>
         <Button text="Listar excursiones" onAction="#handleListExcursiones"/>
+        <TextField fx:id="codigoExcursionField" promptText="Código de la excursión"/>
         <Button text="Eliminar excursión" onAction="#handleRemoveExcursion"/>
-        <Button text="Atrás" onAction="#handleBack"/>
+        <Label fx:id="labelMensaje"/>
+        <Button fx:id="backButton" text="Atrás" onAction="#handleBack"/>
     </children>
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>

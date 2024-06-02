@@ -1,25 +1,40 @@
 package com.example.RompeSistemasHibernate.Vista;
 
 import com.example.RompeSistemasHibernate.Controlador.ControlExcursiones;
-import com.example.RompeSistemasHibernate.Modelo.Excursion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class VistaExcursionesController {
 
     private ControlExcursiones controlExcursiones;
     private Stage stage;
-    private Excursion excursion;
 
-    public void initialize() {
+    @FXML
+    private TextField codigoExcursionField;
+    @FXML
+    private Label labelMensaje;
+
+    public void initialize(ControlExcursiones controlExcursiones, Stage stage) {
         this.controlExcursiones = controlExcursiones;
         this.stage = stage;
-        this.excursion = excursion;
+    }
+    public void setControlExcursiones(ControlExcursiones cExcursiones) {
+        this.controlExcursiones = cExcursiones;
+        initialize();
+    }
+    @FXML
+    public void initialize() {
+        if (codigoExcursionField != null) {
+            codigoExcursionField.setText("");
+        }
     }
 
     @FXML
@@ -54,7 +69,17 @@ public class VistaExcursionesController {
 
     @FXML
     private void handleRemoveExcursion(ActionEvent event) {
-        controlExcursiones.removeExcursion(excursion); // Asumiendo que hay un método para eliminar excursiones en el controlador
+        String codigo = codigoExcursionField.getText();
+        try {
+            if (controlExcursiones.checkExistenciaExcursion(codigo)) {
+                controlExcursiones.removeExcursion(codigo);
+                labelMensaje.setText("Excursión eliminada correctamente.");
+            } else {
+                labelMensaje.setText("Código de excursión no válido.");
+            }
+        } catch (SQLException e) {
+            labelMensaje.setText("Error al eliminar la excursión: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -62,8 +87,5 @@ public class VistaExcursionesController {
         stage.close();
     }
 
-    public void setControlExcursiones(ControlExcursiones cExcursiones) {
-        this.controlExcursiones = cExcursiones;
-        initialize();
-    }
+
 }

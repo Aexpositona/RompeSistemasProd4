@@ -59,8 +59,7 @@ public class SQLExcursionDAO implements ExcursionDAO {
     public void deleteExcursion(Excursion excursion) {
         em.getTransaction().begin();
         try {
-            Excursion excursionToDelete = em.contains(excursion) ? excursion : em.merge(excursion);
-            em.remove(excursionToDelete);
+            em.remove(em.contains(excursion) ? excursion : em.merge(excursion));
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();

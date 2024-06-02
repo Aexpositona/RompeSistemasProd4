@@ -16,6 +16,7 @@ import java.text.ParseException;
 public class VistaMenuPrincipalController {
 
     private ControlMenuPrincipal cMenuPrincipal;
+    private Stage stage;
 
     @FXML
     private Button btnInscripciones;
@@ -31,7 +32,10 @@ public class VistaMenuPrincipalController {
 
     @FXML
     private Label lblMensaje;
-    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     /**
      * Método para manejar el evento de ir a la vista de inscripciones.

@@ -9,9 +9,11 @@ public class ControlPeticiones {
     public ControlPeticiones() {
         this.scanner = new Scanner(System.in);
     }
+    public ControlSocios cSocios;
 
     public ControlPeticiones(ControlPeticiones cPeticiones) {
         this.scanner = cPeticiones.getScanner();
+        this.cSocios = cPeticiones.cSocios;
     }
 
     public Scanner getScanner() {
@@ -21,6 +23,7 @@ public class ControlPeticiones {
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
     }
+
 
     public String pedirString(String peticion) {
         System.out.print(peticion);

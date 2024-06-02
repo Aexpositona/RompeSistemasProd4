@@ -14,7 +14,6 @@ import java.sql.SQLException;
 
 /**
  * Controlador para la gestión del menú principal de la aplicación.
- *
  */
 public class ControlMenuPrincipal {
 
@@ -33,10 +32,11 @@ public class ControlMenuPrincipal {
      * @param cDatos ControlDatos
      * @param cPeticiones ControlPeticiones
      * @param em EntityManager
+     * @param cSocios ControlSocios
      */
-    public ControlMenuPrincipal(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones, EntityManager em) throws SQLException, IOException {
+    public ControlMenuPrincipal(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones, EntityManager em, ControlSocios cSocios) throws SQLException, IOException {
         this.em = em;
-        this.cSocios = new ControlSocios(app, cDatos, cPeticiones, em);
+        this.cSocios = cSocios;
         this.cExcursiones = new ControlExcursiones(app, cDatos, cPeticiones, em);
         this.cInscripciones = new ControlInscripciones(em, cDatos, cPeticiones, cSocios, cExcursiones);
         this.cPeticiones = cPeticiones;
@@ -56,16 +56,6 @@ public class ControlMenuPrincipal {
         this.cExcursiones = cMenuPrincipal.getControlExcursiones();
         this.cPeticiones = cMenuPrincipal.getControlPeticiones();
         initVistaMenuPrincipal();
-    }
-
-    /**
-     * Constructor de ControlMenuPrincipal vacío.
-     */
-    public ControlMenuPrincipal() {
-        this.cInscripciones = null;
-        this.cSocios = null;
-        this.cExcursiones = null;
-        this.cPeticiones = null;
     }
 
     private void initVistaMenuPrincipal() throws IOException {
@@ -121,7 +111,7 @@ public class ControlMenuPrincipal {
         Stage stage = new Stage();
         stage.setScene(new Scene(loader.load()));
         VistaInscripcionesController vInscripcionesController = loader.getController();
-        vInscripcionesController.setControlInscripciones(cInscripciones);
+        vInscripcionesController.initialize(cInscripciones, stage);
         stage.setTitle("Gestión de Inscripciones");
         stage.show();
     }
@@ -131,7 +121,7 @@ public class ControlMenuPrincipal {
         Stage stage = new Stage();
         stage.setScene(new Scene(loader.load()));
         VistaSociosController vSociosController = loader.getController();
-        vSociosController.setControlSocios(cSocios);
+        vSociosController.initialize(cSocios, stage);
         stage.setTitle("Gestión de Socios");
         stage.show();
     }
@@ -141,7 +131,7 @@ public class ControlMenuPrincipal {
         Stage stage = new Stage();
         stage.setScene(new Scene(loader.load()));
         VistaExcursionesController vExcursionesController = loader.getController();
-        vExcursionesController.setControlExcursiones(cExcursiones);
+        vExcursionesController.initialize(cExcursiones, stage);
         stage.setTitle("Gestión de Excursiones");
         stage.show();
     }

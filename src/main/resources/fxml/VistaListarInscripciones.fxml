@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.RompeSistemasHibernate.Vista.VistaListarInscripcionesController">
+    <children>
+        <Label text="Listar Inscripciones"/>
+        <Button text="Listar todas las inscripciones" onAction="#handleListarTodas"/>
+        <TextField fx:id="codigoSocioField" promptText="Código del socio"/>
+        <Button text="Listar inscripción por socio" onAction="#handleListarPorSocio"/>
+        <DatePicker fx:id="fechaInicialPicker" promptText="Fecha inicial"/>
+        <DatePicker fx:id="fechaFinalPicker" promptText="Fecha final"/>
+        <Button text="Listar inscripción por fechas" onAction="#handleListarPorFechas"/>
+        <Button text="Atrás" onAction="#handleAtras"/>
+    </children>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</VBox>

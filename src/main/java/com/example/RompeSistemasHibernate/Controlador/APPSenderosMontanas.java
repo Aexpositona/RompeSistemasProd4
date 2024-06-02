@@ -1,14 +1,15 @@
 package com.example.RompeSistemasHibernate.Controlador;
 
-import com.example.RompeSistemasHibernate.Vista.*;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
 
-public class APPSenderosMontanas {
+public class APPSenderosMontanas extends Application {
 
     // Atributos
     private ControlMenuPrincipal cMenuPrincipal;
@@ -20,14 +21,17 @@ public class APPSenderosMontanas {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
-    public static void main(String[] args) throws ParseException, SQLException {
-        APPSenderosMontanas app = new APPSenderosMontanas();
-        app.iniciar();
-        app.showVistaMenuPrincipal();
-        app.close();
+    public static void main(String[] args) {
+        launch(args);
     }
 
-    public void iniciar() throws SQLException {
+    @Override
+    public void start(Stage primaryStage) throws SQLException, IOException {
+        iniciar();
+        mostrarMenuPrincipal();
+    }
+
+    public void iniciar() throws SQLException, IOException {
         entityManagerFactory = Persistence.createEntityManagerFactory("AppSenderosMontanasPU");
         entityManager = entityManagerFactory.createEntityManager();
 
@@ -38,43 +42,15 @@ public class APPSenderosMontanas {
         cSocios = new ControlSocios(this, cDatos, cPeticiones, entityManager);
         cExcursiones = new ControlExcursiones(this, cDatos, cPeticiones, entityManager);
         cMenuPrincipal = new ControlMenuPrincipal(this, cDatos, cPeticiones, entityManager);
-
-        // Configurar las vistas para ControlMenuPrincipal
-        VistaMenuPrincipal vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal);
-        cMenuPrincipal.setVistaMenuPrincipal(vMenuPrincipal);
-
-        // Configurar las vistas para ControlInscripciones
-        VistaInscripciones vInscripciones = new VistaInscripciones(cInscripciones);
-        VistaListarInscripciones vListarInscripciones = new VistaListarInscripciones(cInscripciones);
-        VistaAddInscripcion vAddInscripcion = new VistaAddInscripcion(cInscripciones);
-
-        cInscripciones.setVistaInscripciones(vInscripciones);
-        cInscripciones.setVistaListarInscripciones(vListarInscripciones);
-        cInscripciones.setVistaAddInscripcion(vAddInscripcion);
-
-        // Configurar las vistas para ControlSocios
-        VistaSocios vSocios = new VistaSocios(cSocios);
-        VistaListarSocios vListarSocios = new VistaListarSocios(cSocios);
-        VistaAddSocio vAddSocio = new VistaAddSocio(cSocios);
-        VistaModificarSeguro vModificarSeguro = new VistaModificarSeguro(cSocios);
-
-        cSocios.setVistaSocios(vSocios);
-        cSocios.setVistaListarSocios(vListarSocios);
-        cSocios.setVistaAddSocio(vAddSocio);
-        cSocios.setVistaModificarSeguro(vModificarSeguro);
-
-        // Configurar las vistas para ControlExcursiones
-        VistaExcursiones vExcursiones = new VistaExcursiones(cExcursiones);
-        VistaListarExcursiones vListarExcursiones = new VistaListarExcursiones(cExcursiones);
-        VistaAddExcursion vAddExcursion = new VistaAddExcursion(cExcursiones);
-
-        cExcursiones.setVistaExcursiones(vExcursiones);
-        cExcursiones.setVistaListarExcursiones(vListarExcursiones);
-        cExcursiones.setVistaAddExcursion(vAddExcursion);
     }
 
-    private void showVistaMenuPrincipal() throws ParseException, SQLException {
-        cMenuPrincipal.show();
+    private void mostrarMenuPrincipal() throws IOException {
+        cMenuPrincipal.showVistaMenuPrincipal();
+    }
+
+    @Override
+    public void stop() {
+        close();
     }
 
     public void close() {

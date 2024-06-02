@@ -2,12 +2,15 @@ package com.example.RompeSistemasHibernate.Controlador;
 
 import com.example.RompeSistemasHibernate.Datos.*;
 import com.example.RompeSistemasHibernate.Modelo.*;
-import com.example.RompeSistemasHibernate.Vista.*;
 import com.example.RompeSistemasHibernate.ModeloDAO.*;
+import com.example.RompeSistemasHibernate.Vista.VistaAddExcursionController;
+import com.example.RompeSistemasHibernate.Vista.VistaListarExcursionesController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
-import java.sql.SQLException;
-import java.text.ParseException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,26 +18,22 @@ public class ControlExcursiones {
     private EntityManager entityManager;
     private ControlDatos cDatos;
     private ExcursionDAO excursionDAO;
-    private VistaExcursiones vExcursiones;
-    private VistaAddExcursion vAddExcursion;
-    private VistaListarExcursiones vListarExcursiones;
     private ControlPeticiones cPeticiones;
+    private Excursion excursion;
+    private Stage primaryStage;
 
     public ControlExcursiones(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones, EntityManager entityManager) {
         this.entityManager = entityManager;
         this.cDatos = cDatos;
         this.cPeticiones = cPeticiones;
         this.excursionDAO = new SQLExcursionDAO(entityManager);
-        this.vExcursiones = new VistaExcursiones(this);
-        this.vAddExcursion = new VistaAddExcursion(this);
-        this.vListarExcursiones = new VistaListarExcursiones(this);
     }
 
     public void addExcursion(Excursion excursion) {
         excursionDAO.insertarExcursion(excursion);
     }
 
-    public void removeExcursion(Excursion excursion) {
+    public void removeExcursion() {
         entityManager.getTransaction().begin();
         try {
             excursionDAO.deleteExcursion(excursion);
@@ -59,16 +58,24 @@ public class ControlExcursiones {
         }
     }
 
-    public void showVistaListarExcursiones() throws SQLException {
-        vListarExcursiones.show();
+    public void showVistaListarExcursiones() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VistaListarExcursiones.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+        VistaListarExcursionesController controller = loader.getController();
+        controller.initialize(this, stage);
+        stage.setTitle("Listar Excursiones");
+        stage.show();
     }
 
-    public void show() throws ParseException, SQLException {
-        vExcursiones.show();
-    }
-
-    public void showVistaAddExcursion() throws ParseException, SQLException {
-        vAddExcursion.show();
+    public void showVistaAddExcursion() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VistaAddExcursion.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+        VistaAddExcursionController controller = loader.getController();
+        controller.initialize(this, stage);
+        stage.setTitle("Añadir Excursión");
+        stage.show();
     }
 
     public String getUltimoCodigo() {
@@ -87,18 +94,6 @@ public class ControlExcursiones {
         return excursionDAO.getExcursionPorCodigo(codigoExcursion);
     }
 
-    public void setVistaExcursiones(VistaExcursiones vExcursiones) {
-        this.vExcursiones = vExcursiones;
-    }
-
-    public void setVistaAddExcursion(VistaAddExcursion vAddExcursion) {
-        this.vAddExcursion = vAddExcursion;
-    }
-
-    public void setVistaListarExcursiones(VistaListarExcursiones vListarExcursiones) {
-        this.vListarExcursiones = vListarExcursiones;
-    }
-
     // Método para obtener ControlDatos
     public ControlDatos getControlDatos() {
         return cDatos;
@@ -108,5 +103,4 @@ public class ControlExcursiones {
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;
     }
-
 }

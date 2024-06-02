@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.RompeSistemasHibernate.Vista.VistaSociosController">
+    <Label text="************ MENÚ SOCIOS ************"/>
+    <Button fx:id="btnAddSocio" text="Añadir socio" onAction="#handleButtonAddSocio"/>
+    <Button fx:id="btnRemoveSocio" text="Eliminar socio" onAction="#handleButtonRemoveSocio"/>
+    <Button fx:id="btnModificarSeguro" text="Modificar tipo de seguro" onAction="#handleButtonModificarSeguro"/>
+    <Button fx:id="btnListSocios" text="Listar socios" onAction="#handleButtonListSocios"/>
+    <Button fx:id="btnMostrarFacturaMensual" text="Mostrar factura mensual de los socios" onAction="#handleButtonMostrarFacturaMensual"/>
+    <Button fx:id="btnMostrarFacturaFechas" text="Mostrar factura entre dos fechas" onAction="#handleButtonMostrarFacturaFechas"/>
+    <Button fx:id="btnMostrarFacturaFechasSocio" text="Mostrar factura entre dos fechas de un socio" onAction="#handleButtonMostrarFacturaFechasSocio"/>
+    <Button fx:id="btnAtras" text="Atrás" onAction="#handleButtonAtras"/>
+    <Label fx:id="lblMensaje" text=""/>
+</VBox>

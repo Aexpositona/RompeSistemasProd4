@@ -9,7 +9,7 @@ public interface FederacionDAO {
     void eliminarFederacion(Federacion federacion);
     Federacion buscarFederacion(int id);
     Federacion buscarFederacion(String nombre);
-    Federacion getFederacion(String codigo);
+    Federacion getFederacion(String codigoFederacion);
     List<Federacion> listarFederaciones();
 }
 

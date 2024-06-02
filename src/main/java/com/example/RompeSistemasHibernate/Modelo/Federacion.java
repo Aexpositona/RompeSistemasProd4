@@ -9,14 +9,14 @@ public class Federacion {
 
     @Id
     @Column(nullable = false, unique = true)
-    private String codigo;
+    private String codigoFederacion;
 
     @Column(nullable = false)
     private String nombre;
 
     // Constructor
     public Federacion(String codigo, String nombre) {
-        this.codigo = codigo;
+        this.codigoFederacion = codigo;
         this.nombre = nombre;
     }
 
@@ -25,7 +25,7 @@ public class Federacion {
 
     // Getters
     public String getCodigo() {
-        return codigo;
+        return codigoFederacion;
     }
 
     public String getNombre() {
@@ -34,7 +34,7 @@ public class Federacion {
 
     // Setters
     public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        this.codigoFederacion = codigo;
     }
 
     public void setNombre(String nombre) {
@@ -43,7 +43,7 @@ public class Federacion {
 
     @Override
     public String toString() {
-        return "Nombre: " + nombre + "\nCódigo: " + codigo + "\n";
+        return "Nombre: " + nombre + "\nCódigo: " + codigoFederacion + "\n";
     }
 }
 

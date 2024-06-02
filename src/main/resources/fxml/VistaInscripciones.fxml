@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.RompeSistemasHibernate.Vista.VistaInscripcionesController">
+    <children>
+        <Button fx:id="addInscripcionButton" text="Añadir inscripción" onAction="#handleAddInscripcion"/>
+        <Button fx:id="listInscripcionesButton" text="Listar inscripciones" onAction="#handleListInscripciones"/>
+        <Button fx:id="removeInscripcionButton" text="Eliminar inscripción" onAction="#handleRemoveInscripcion"/>
+        <Button fx:id="backButton" text="Atrás" onAction="#handleBack"/>
+    </children>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</VBox>

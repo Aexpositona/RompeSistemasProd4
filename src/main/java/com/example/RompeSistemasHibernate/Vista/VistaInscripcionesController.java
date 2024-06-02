@@ -3,8 +3,10 @@ package com.example.RompeSistemasHibernate.Vista;
 import com.example.RompeSistemasHibernate.Controlador.ControlInscripciones;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,7 +18,10 @@ public class VistaInscripcionesController {
     private TextArea textArea;
     @FXML
     private Button backButton;
-
+    @FXML
+    private TextField codigoInscripcionField;
+    @FXML
+    private Label labelMensaje;
     private ControlInscripciones controlInscripciones;
     private Stage stage;
 
@@ -47,8 +52,18 @@ public class VistaInscripcionesController {
     }
 
     @FXML
-    private void handleRemoveInscripcion(ActionEvent event) throws SQLException {
-        controlInscripciones.showVistaRemoveInscripcion();
+    private void handleRemoveInscripcion(ActionEvent event) {
+        String codigo = codigoInscripcionField.getText();
+        try {
+            if (controlInscripciones.getInscripcion(codigo)) {
+                controlInscripciones.removeInscripcion(codigo);
+                labelMensaje.setText("Inscripción eliminada correctamente.");
+            } else {
+                labelMensaje.setText("Código de inscripción no válido.");
+            }
+        } catch (SQLException e) {
+            labelMensaje.setText("Error al eliminar la inscripción: " + e.getMessage());
+        }
     }
 
     @FXML

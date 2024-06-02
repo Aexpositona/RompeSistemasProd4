@@ -59,13 +59,16 @@ public class VistaAddInscripcionController {
             return;
         }
 
+        String siguienteCodigo = controlInscripciones.getSiguienteCodigo(); // Obtener el siguiente código de inscripción
+
         Inscripcion inscripcion = new Inscripcion();
+        inscripcion.setNumero(siguienteCodigo);
         inscripcion.setSocio(socio);
         inscripcion.setExcursion(excursion);
         inscripcion.setFecha(java.time.LocalDate.now());
 
         controlInscripciones.addInscripcion(inscripcion);
-        labelMensaje.setText("Inscripción añadida correctamente.");
+        labelMensaje.setText("Inscripción añadida correctamente con número " + siguienteCodigo + ".");
     }
 
     @FXML

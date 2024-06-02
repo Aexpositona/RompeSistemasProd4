@@ -49,27 +49,10 @@ public class ControlInscripciones {
         return inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
     }
 
-    public void showVistaRemoveInscripcion() throws SQLException {
-        String numero = cPeticiones.pedirString("Introduzca el código de la inscripción a eliminar: ");
-        if (getInscripcion(numero)) {
-            if (cPeticiones.pedirConfirmacion("¿Está seguro de que desea eliminar la inscripción? (S/N): ")) {
-                removeInscripcion(numero);
-                System.out.println("Inscripción eliminada correctamente.");
-            } else {
-                System.out.println("Operación cancelada.");
-            }
-        } else {
-            System.out.println("El id introducido no es válido. Inténtelo de nuevo.\n\n");
-        }
-    }
-
     public void removeInscripcion(String numero) throws SQLException {
         Inscripcion inscripcion = inscripcionDAO.getInscripcion(numero);
         if (inscripcion != null) {
             inscripcionDAO.eliminarInscripcion(inscripcion);
-            System.out.println("Inscripción eliminada correctamente.");
-        } else {
-            System.out.println("Inscripción no encontrada.");
         }
     }
 
@@ -118,5 +101,8 @@ public class ControlInscripciones {
 
     public EntityManager getEntityManager() {
         return entityManager;
+    }
+    public String getSiguienteCodigo() {
+        return cDatos.getSiguienteCodigo(2);
     }
 }

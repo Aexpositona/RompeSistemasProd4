@@ -1,12 +1,15 @@
 package com.example.RompeSistemasHibernate.Vista;
 
 import com.example.RompeSistemasHibernate.Controlador.ControlExcursiones;
+import com.example.RompeSistemasHibernate.Modelo.Excursion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class VistaListarExcursionesController {
 
@@ -15,6 +18,9 @@ public class VistaListarExcursionesController {
 
     @FXML
     private DatePicker fechaFinalPicker;
+
+    @FXML
+    private ListView<String> listViewExcursiones;
 
     private ControlExcursiones controlExcursiones;
     private Stage stage;
@@ -27,9 +33,13 @@ public class VistaListarExcursionesController {
     @FXML
     private void handleListAll(ActionEvent event) {
         try {
-            controlExcursiones.listExcursiones();
+            List<Excursion> excursiones = controlExcursiones.listExcursiones();
+            listViewExcursiones.getItems().clear();
+            for (Excursion excursion : excursiones) {
+                listViewExcursiones.getItems().add("Código: " + excursion.getCodigoExcursion() + ", Descripción: " + excursion.getDescripcion() + ", Fecha: " + excursion.getFecha() + ", Precio: " + excursion.getPrecio());
+            }
         } catch (Exception e) {
-            txtMostrarMensaje("Error al listar las excursiones.\n");
+            listViewExcursiones.getItems().add("Error al listar las excursiones.");
         }
     }
 
@@ -39,23 +49,28 @@ public class VistaListarExcursionesController {
         LocalDate fechaFinal = fechaFinalPicker.getValue();
 
         if (fechaInicial == null || fechaFinal == null) {
-            txtMostrarMensaje("Debe seleccionar ambas fechas.\n");
+            listViewExcursiones.getItems().add("Debe seleccionar ambas fechas.");
             return;
         }
 
         try {
-            controlExcursiones.listExcursionesFechas(fechaInicial, fechaFinal);
+            List<Excursion> excursiones = controlExcursiones.listExcursionesFechas(fechaInicial, fechaFinal);
+            listViewExcursiones.getItems().clear();
+            for (Excursion excursion : excursiones) {
+                listViewExcursiones.getItems().add("Código: " + excursion.getCodigoExcursion() + ", Descripción: " + excursion.getDescripcion() + ", Fecha: " + excursion.getFecha());
+            }
         } catch (Exception e) {
-            txtMostrarMensaje("Error al listar las excursiones por fechas.\n");
+            listViewExcursiones.getItems().add("Error al listar las excursiones por fechas.");
         }
     }
 
     @FXML
     private void handleBack(ActionEvent event) {
+        try {
+            controlExcursiones.showVistaExcursiones();
+        } catch (Exception e) {
+            listViewExcursiones.getItems().add("Error al volver al menú de excursiones.");
+        }
         stage.close();
-    }
-
-    private void txtMostrarMensaje(String mensaje) {
-        System.out.print(mensaje);
     }
 }

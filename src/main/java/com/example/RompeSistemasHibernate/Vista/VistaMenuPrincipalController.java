@@ -4,6 +4,7 @@ import com.example.RompeSistemasHibernate.Controlador.ControlMenuPrincipal;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,6 +31,7 @@ public class VistaMenuPrincipalController {
 
     @FXML
     private Label lblMensaje;
+    private Stage stage;
 
     /**
      * Método para manejar el evento de ir a la vista de inscripciones.
@@ -64,7 +66,7 @@ public class VistaMenuPrincipalController {
     @FXML
     private void handleButtonVistaSalir(){
         lblMensaje.setText("Saliendo de la aplicación...");
-        // Aquí puedes añadir lógica para cerrar la aplicación si es necesario
+        stage.close();
     }
 
     /**

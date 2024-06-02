@@ -19,24 +19,25 @@ public class ControlExcursiones {
     private ControlDatos cDatos;
     private ExcursionDAO excursionDAO;
     private ControlPeticiones cPeticiones;
-    private Excursion excursion;
     private Stage primaryStage;
+    private Excursion excursion;
 
     public ControlExcursiones(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones, EntityManager entityManager) {
         this.entityManager = entityManager;
         this.cDatos = cDatos;
         this.cPeticiones = cPeticiones;
         this.excursionDAO = new SQLExcursionDAO(entityManager);
+        this.excursion = excursion;
     }
 
     public void addExcursion(Excursion excursion) {
         excursionDAO.insertarExcursion(excursion);
     }
 
-    public void removeExcursion() {
+    public void removeExcursion(Excursion excursion) {
         entityManager.getTransaction().begin();
         try {
-            excursionDAO.deleteExcursion(excursion);
+            excursionDAO.deleteExcursion(this.excursion);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
@@ -44,18 +45,12 @@ public class ControlExcursiones {
         }
     }
 
-    public void listExcursiones() {
-        List<Excursion> excursiones = excursionDAO.getAllExcursiones();
-        for (Excursion excursion : excursiones) {
-            System.out.println("Código: " + excursion.getCodigoExcursion() + ", Descripción: " + excursion.getDescripcion() + ", Fecha: " + excursion.getFecha() + ", Precio: " + excursion.getPrecio());
-        }
+    public List<Excursion> listExcursiones() {
+        return excursionDAO.getAllExcursiones();
     }
 
-    public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
-        List<Excursion> excursiones = excursionDAO.getExcursionesPorFecha(fechaInicial, fechaFinal);
-        for (Excursion excursion : excursiones) {
-            System.out.println("Código: " + excursion.getCodigoExcursion() + ", Descripción: " + excursion.getDescripcion() + ", Fecha: " + excursion.getFecha());
-        }
+    public List<Excursion> listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+        return excursionDAO.getExcursionesPorFecha(fechaInicial, fechaFinal);
     }
 
     public void showVistaListarExcursiones() throws IOException {
@@ -75,6 +70,14 @@ public class ControlExcursiones {
         VistaAddExcursionController controller = loader.getController();
         controller.initialize(this, stage);
         stage.setTitle("Añadir Excursión");
+        stage.show();
+    }
+
+    public void showVistaExcursiones() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VistaExcursiones.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+        stage.setTitle("Gestión de Excursiones");
         stage.show();
     }
 

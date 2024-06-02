@@ -1,6 +1,7 @@
 package com.example.RompeSistemasHibernate.Vista;
 
 import com.example.RompeSistemasHibernate.Controlador.ControlExcursiones;
+import com.example.RompeSistemasHibernate.Modelo.Excursion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,10 +14,12 @@ public class VistaExcursionesController {
 
     private ControlExcursiones controlExcursiones;
     private Stage stage;
+    private Excursion excursion;
 
     public void initialize() {
         this.controlExcursiones = controlExcursiones;
         this.stage = stage;
+        this.excursion = excursion;
     }
 
     @FXML
@@ -51,7 +54,7 @@ public class VistaExcursionesController {
 
     @FXML
     private void handleRemoveExcursion(ActionEvent event) {
-        controlExcursiones.removeExcursion(); // Asumiendo que hay un método para eliminar excursiones en el controlador
+        controlExcursiones.removeExcursion(excursion); // Asumiendo que hay un método para eliminar excursiones en el controlador
     }
 
     @FXML

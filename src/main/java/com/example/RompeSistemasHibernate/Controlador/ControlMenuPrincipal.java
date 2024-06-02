@@ -62,10 +62,10 @@ public class ControlMenuPrincipal {
      * Constructor de ControlMenuPrincipal vacío.
      */
     public ControlMenuPrincipal() {
-        this.cInscripciones = null;
-        this.cSocios = null;
-        this.cExcursiones = null;
-        this.cPeticiones = null;
+        this.cInscripciones = cInscripciones;
+        this.cSocios = cSocios;
+        this.cExcursiones = cExcursiones;
+        this.cPeticiones = cPeticiones;
     }
 
     private void initVistaMenuPrincipal() throws IOException {

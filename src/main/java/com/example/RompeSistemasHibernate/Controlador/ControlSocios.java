@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -112,7 +113,7 @@ public class ControlSocios {
         return socioDAO.listarSocios();
     }
 
-    public void removeSocio(Socio socio) {
+    public void removeSocio(Socio socio) throws SQLException {
         if (socio != null) {
             socioDAO.eliminarSocio(socio);
             System.out.println("Socio eliminado correctamente.");
@@ -141,7 +142,7 @@ public class ControlSocios {
         return seguroDAO.listarSeguros();
     }
 
-    public void calcularFacturaMensualSocios() {
+    public String calcularFacturaMensualSocios() {
         LocalDate fechaFinal = LocalDate.now();
         LocalDate fechaInicial = fechaFinal.minusMonths(1);
         List<Inscripcion> listInscripciones = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
@@ -153,10 +154,10 @@ public class ControlSocios {
             totalFactura += excursion.getPrecio();
         }
 
-        System.out.println("Total factura mensual de los socios: " + totalFactura + " euros.");
+        return "Total factura mensual de los socios: " + totalFactura + " euros.";
     }
 
-    public void calcularFacturaFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+    public String calcularFacturaFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
         List<Inscripcion> listInscripciones = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
         float totalFactura = 0;
 
@@ -170,10 +171,10 @@ public class ControlSocios {
             }
         }
 
-        System.out.println("Total factura entre fechas de los socios: " + totalFactura + " euros.");
+        return "Total factura entre fechas de los socios: " + totalFactura + " euros.";
     }
 
-    public void calcularFacturasFechasSocio(String numeroSocio, LocalDate fechaInicial, LocalDate fechaFinal) {
+    public String calcularFacturasFechasSocio(String numeroSocio, LocalDate fechaInicial, LocalDate fechaFinal) {
         List<Inscripcion> listInscripciones = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
         float totalFactura = 0;
 
@@ -185,7 +186,7 @@ public class ControlSocios {
             }
         }
 
-        System.out.println("Total factura entre fechas para el socio " + numeroSocio + ": " + totalFactura + " euros.");
+        return "Total factura entre fechas para el socio " + numeroSocio + ": " + totalFactura + " euros.";
     }
 
     // Getters

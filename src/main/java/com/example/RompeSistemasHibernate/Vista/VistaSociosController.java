@@ -5,13 +5,17 @@ import com.example.RompeSistemasHibernate.Controlador.ControlSocios;
 import com.example.RompeSistemasHibernate.Modelo.Socio;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class VistaSociosController {
 
@@ -36,7 +40,17 @@ public class VistaSociosController {
     @FXML
     private Button btnAtras;
     @FXML
+    private Button btnListSociosremove;
+    @FXML
     private Label lblMensaje;
+    @FXML
+    private ListView<String> listViewSocios;
+    @FXML
+    private TextArea textAreaResultados;
+    @FXML
+    private DatePicker fechaInicialPicker;
+    @FXML
+    private DatePicker fechaFinalPicker;
 
     public void initialize(ControlSocios cSocios, Stage stage) {
         this.cSocios = cSocios;
@@ -50,13 +64,24 @@ public class VistaSociosController {
     }
 
     @FXML
-    private void handleButtonRemoveSocio() throws SQLException {
-        String codigoSocio = cPeticiones.pedirString("Introduzca el código del socio a eliminar: ");
-        Socio socio = cSocios.getControlDatos().getSocio(codigoSocio);
-        if (socio != null) {
-            cSocios.removeSocio(socio);
+    private void handleButtonRemoveSocio() {
+        String selectedSocio = listViewSocios.getSelectionModel().getSelectedItem();
+        if (selectedSocio != null) {
+            String codigoSocio = selectedSocio.split(",")[0].split(":")[1].trim();
+            Socio socio = cSocios.getControlDatos().getSocio(codigoSocio);
+            try {
+                if (socio != null) {
+                    cSocios.removeSocio(socio);
+                    lblMensaje.setText("Socio eliminado correctamente.");
+                    cargarSocios();
+                } else {
+                    lblMensaje.setText("Socio no encontrado.");
+                }
+            } catch (SQLException e) {
+                lblMensaje.setText("Error al eliminar el socio: " + e.getMessage());
+            }
         } else {
-            txtMostrarMensaje("Socio no encontrado.\n");
+            lblMensaje.setText("Debe seleccionar un socio.");
         }
     }
 
@@ -66,28 +91,53 @@ public class VistaSociosController {
     }
 
     @FXML
-    private void handleButtonListSocios() throws SQLException, ParseException, IOException {
+    private void handleButtonListSocios() throws IOException {
         cSocios.showVistaListarSocios();
     }
 
     @FXML
-    private void handleButtonMostrarFacturaMensual() throws SQLException {
-        cSocios.calcularFacturaMensualSocios();
+    private void handleButtonListSociosremove() {
+        cargarSocios();
+    }
+    @FXML
+    private void handleButtonMostrarFacturaMensual() {
+        String resultado = cSocios.calcularFacturaMensualSocios();
+        textAreaResultados.setText(resultado);
     }
 
     @FXML
-    private void handleButtonMostrarFacturaFechas() throws SQLException {
-        LocalDate fechaInicial = cPeticiones.pedirFecha("Introduzca la fecha inicial (YYYY-MM-DD): ", LocalDate.parse("2000-01-01"), LocalDate.now());
-        LocalDate fechaFinal = cPeticiones.pedirFecha("Introduzca la fecha final (YYYY-MM-DD): ", fechaInicial, LocalDate.now());
-        cSocios.calcularFacturaFechas(fechaInicial, fechaFinal);
+    private void handleButtonMostrarFacturaFechas() {
+        LocalDate fechaInicial = fechaInicialPicker.getValue();
+        LocalDate fechaFinal = fechaFinalPicker.getValue();
+
+        if (fechaInicial == null || fechaFinal == null) {
+            lblMensaje.setText("Debe seleccionar ambas fechas.");
+            return;
+        }
+
+        String resultado = cSocios.calcularFacturaFechas(fechaInicial, fechaFinal);
+        textAreaResultados.setText(resultado);
     }
 
     @FXML
-    private void handleButtonMostrarFacturaFechasSocio() throws SQLException {
-        String codigoSocio = cPeticiones.pedirString("Introduzca el código del socio: ");
-        LocalDate fechaInicial = cPeticiones.pedirFecha("Introduzca la fecha inicial (YYYY-MM-DD): ", LocalDate.parse("2000-01-01"), LocalDate.now());
-        LocalDate fechaFinal = cPeticiones.pedirFecha("Introduzca la fecha final (YYYY-MM-DD): ", fechaInicial, LocalDate.now());
-        cSocios.calcularFacturasFechasSocio(codigoSocio, fechaInicial, fechaFinal);
+    private void handleButtonMostrarFacturaFechasSocio() {
+        String selectedSocio = listViewSocios.getSelectionModel().getSelectedItem();
+        if (selectedSocio == null) {
+            lblMensaje.setText("Debe seleccionar un socio.");
+            return;
+        }
+
+        String codigoSocio = selectedSocio.split(",")[0].split(":")[1].trim();
+        LocalDate fechaInicial = fechaInicialPicker.getValue();
+        LocalDate fechaFinal = fechaFinalPicker.getValue();
+
+        if (fechaInicial == null || fechaFinal == null) {
+            lblMensaje.setText("Debe seleccionar ambas fechas.");
+            return;
+        }
+
+        String resultado = cSocios.calcularFacturasFechasSocio(codigoSocio, fechaInicial, fechaFinal);
+        textAreaResultados.setText(resultado);
     }
 
     @FXML
@@ -100,4 +150,11 @@ public class VistaSociosController {
         lblMensaje.setText(mensaje);
     }
 
+    private void cargarSocios() {
+        List<Socio> socios = cSocios.listSocios();
+        listViewSocios.getItems().clear();
+        for (Socio socio : socios) {
+            listViewSocios.getItems().add("Código: " + socio.getCodigoSocio() + ", NIF: " + socio.getNifSocio() + ", Nombre: " + socio.getNombreSocio());
+        }
+    }
 }
